@@ -23,6 +23,17 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-akatab), sans-serif;
+  background-attachment: fixed;
+  background-image: url('/images/vaporwave_cliffs.webp'),
+    linear-gradient(
+          to bottom,
+          #31acd9,
+          #519cb9 55%,
+          #eea9d0 75%,
+          #72c9ef 80%,
+          #425d65 100%
+  );
+  background-size: cover;
 }
 
 .font-akatab {
@@ -43,4 +54,8 @@ body {
 
 .font-mplus1c {
   font-family: var(--font-m-plus-rounded-1c);
+}
+
+.bg-vaporwave-cliffs {
+
 }

@@ -4,9 +4,9 @@ import s from './styles.module.scss';
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-400 via-purple-300 to-pink-300 relative overflow-hidden">
+    <div className="min-h-screen overflow-hidden">
       {/* Background gradient overlay for more depth */}
-      <div className="absolute inset-0 bg-gradient-to-tr from-blue-500/20 via-transparent to-pink-400/30"></div>
+      <div className="absolute inset-0"></div>
 
       {/* Blue circles */}
       <div className="absolute top-20 left-16 w-32 h-32 bg-blue-400/40 rounded-full "></div>
