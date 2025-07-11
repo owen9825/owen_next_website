@@ -1,3 +1,28 @@
+
+.pageMargin {
+  //margin-left: 7rem;
+  margin-inline: calc(min(10vw, 5rem));
+  //margin-right: 5rem;
+}
+
+.bannerTextXl {
+  // Ensure the banner fits nicely
+  font-size: calc(max(
+          min(15vw, var(--text-9xl)),
+          50px)
+  );
+  line-height: 110%;
+}
+
+.bannerTextL {
+  // Ensure the banner fits nicely
+  font-size: calc(max(
+          min(9vw, var(--text-6xl)),
+          25px)
+  );
+  line-height: 110%;
+}
+
 .borderPunctuation {
   -webkit-text-stroke: 0.11rem #1e40af;
 }
