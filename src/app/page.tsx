@@ -30,7 +30,13 @@ const splitCharactersInParagraph = (paragraph: string) => {
 export default function Home() {
   return (
     <div className="min-h-screen overflow-hidden">
-      {/* Background gradient overlay for more depth */}
+      {/* https://react.dev/reference/react-dom/components/link#special-rendering-behavior */}
+      <link href={"https://cdn.jsdelivr.net/npm/augmented-ui@2.0.0/augmented-ui.min.css"}
+            rel="stylesheet"
+            precedence={"default"}
+            crossOrigin={"anonymous"}
+            integrity={"fG4HX+vLcVwnxSvpq3oQHVC/yRJ+R8b3tXmuYoDYqVk="}
+      />
       <div className="absolute inset-0"></div>
 
       {/* Blue circles */}
