@@ -65,8 +65,8 @@ export default function Home() {
               </h2>
           </div>
         </div>
-        <div className="mr-[2vw] border-radius-5">
-            <video width="100%" autoPlay loop muted playsInline className="rounded">
+        <div className={`${s.pageMarginRight} border-radius-5`}>
+            <video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
                     <source src="/videos/Owen_highlights.mp4" type="video/mp4"/>
                     Your browser must not support the video tag.
                 </video>

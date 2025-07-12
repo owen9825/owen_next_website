@@ -1,14 +1,20 @@
 
+
+
 .pageMargin {
   //margin-left: 7rem;
-  margin-inline: calc(min(10vw, 5rem));
+  margin-inline: var(--horizontal-page-margin);
   //margin-right: 5rem;
+}
+
+.pageMarginRight {
+  margin-right: var(--horizontal-page-margin);
 }
 
 .bannerTextXl {
   // Ensure the banner fits nicely
   font-size: calc(max(
-          min(15vw, var(--text-9xl)),
+          min(15vw, 8rem),
           50px)
   );
   line-height: 110%;
@@ -17,7 +23,7 @@
 .bannerTextL {
   // Ensure the banner fits nicely
   font-size: calc(max(
-          min(9vw, var(--text-6xl)),
+          min(9vw, 3.75rem),
           25px)
   );
   line-height: 110%;
