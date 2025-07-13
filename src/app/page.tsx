@@ -71,17 +71,28 @@ export default function Home() {
               </h2>
           </div>
         </div>
-        <div className={`${s.pageMarginRight} border-radius-5`}>
-            <video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
+
+        <div className={`${s.pageMarginRight} border-radius-5 ${s.augmentedVideo} ${s.neonPinkBorder}`} data-augmented-ui="tr-clip bl-clip br-clip-y both">
+
+            <img src={'images/Owen_in_Brunswick.jpg'}/>
+            {/*<video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
                     <source src="/videos/Owen_highlights.mp4" type="video/mp4"/>
                     Your browser must not support the video tag.
-                </video>
+                </video>*/}
         </div>
+
       </header>
       <main className="text-black">
           <div className={ s.pageMargin }>
           <p>G'day, I'm Owen Miller, a software engineer in Melbourne, Australia.</p>
           </div>
+          <div className={`${s.pageMarginRight} my-15 border-radius-5 ${s.neonPinkBorder}`} style={{maxWidth: "300px"}}>
+
+            <img src={'images/Owen_in_Brunswick.jpg'} className={"max-w-full"} style={{zIndex:11}}/>
+          </div>
+          <section>
+              Something eles here
+          </section>
       </main>
       <Footer/>
     </div>

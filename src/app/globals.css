@@ -4,6 +4,7 @@
   --background: #ffffff;
   --foreground: #171717;
   --horizontal-page-margin: calc(min(10vw, 5rem));
+    --neon-pink: rgba(248, 151, 233, 0.82);
 }
 
 @theme inline {
