@@ -46,6 +46,25 @@
   -webkit-text-stroke: 0.01rem #1e40af;
 }
 
+.augmentedSection {
+  section {
+    min-height: 5rem;
+    padding-left: 5rem;
+    -aug-tr: 25px;
+    --aug-bl: 57px;
+    --aug-br: 25px;
+    --aug-br-inset2: 40%;
+    --aug-border-all: 10px;
+    --aug-border-bg: linear-gradient(
+                    to bottom,
+                    #e38bf8,
+                    #9049a4
+    );
+    --aug-inlay-all: 10px;
+    --aug-inlay-bg: #fbe806;
+  }
+}
+
 .augmentedVideo {
   -aug-tr: 25px;
   --aug-bl: 57px;

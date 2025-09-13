@@ -86,8 +86,38 @@ export default function Home() {
         </div>
       </header>
       <main className="text-black">
-          <div className={ s.pageMargin }>
-          <p>G'day, I'm Owen Miller, a software engineer in Melbourne, Australia.</p>
+          <div className={`${s.pageMargin} flex flex-col gap-10 ${s.augmentedSection}`}>
+            <section className={"flex flex-col justify-center h-full mb-10"}
+                     data-augmented-ui="tl-clip-y both">
+              <p>G'day, I'm Owen Miller, a software engineer in Melbourne, Australia.</p>
+            </section>
+            <section className={"flex flex-col justify-center h-full"}
+                     data-augmented-ui="bl-clip tr-clip both">
+              <h2>Software Engineering</h2>
+              <p>I have been a software engineer for a while.</p>
+            </section>
+            <section className={"flex flex-col justify-center h-full"}
+                     data-augmented-ui="bl-clip both">
+              <h2>Politics</h2>
+              <p>I am the founder of the Non-Human Party and an executive member of the Fusion Party</p>
+            </section>
+            <section className={"flex flex-col justify-center h-full"}
+                     data-augmented-ui="bl-clip both">
+              <h2>Podcast</h2>
+              <p>I am a co-host of the podcast My First Party, a political podcast aimed at inspiring listeners to get
+                involved in grassroots political campaigns so they can play a part in improving their nation, whatever
+              that looks like for them (I avoid letting the show become simply a sermon for Fusion)</p>
+            </section>
+            <section className={"flex flex-col justify-center h-full"}
+                     data-augmented-ui="tl-clip tr-clip-y both">
+              <h2>Contact Me</h2>
+              <form>
+                <fieldset>
+                  <textarea/>
+                  <button>Submit</button>
+                </fieldset>
+              </form>
+            </section>
           </div>
           <div className={`${s.pageMarginRight} my-15 border-radius-5 ${s.neonPinkBorder}`} style={{maxWidth: "300px"}}>
 
