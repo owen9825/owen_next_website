@@ -44,43 +44,46 @@ export default function Home() {
       <div className="absolute bottom-32 right-20 w-48 h-48 bg-blue-500/30 rounded-full "></div>
 
       {/* Main content */}
-      <header className={`relative z-10 flex items-center justify-stretch h-full my-50 font-carter-one`}>
-        <div className={`flex justify-start`}>
+      <header className={`relative z-10 flex flex-col sm:flex-row items-center justify-start sm:justify-center h-full my-50 font-carter-one`}>
+        <div className={`flex flex-col justify-start`} id={'header-title'}>
           <div className={`${s.pageMargin} text-left rotate-[-6deg]`}>
-              {/* Main title with pink text and stroke border */}
-              <h1 className={`${s.bannerTextXl} font-bold text-pink-400 mb-4`} style={{
-                WebkitTextStroke: '0.1rem #1e40af'
-              }}>
-                {splitCharactersInParagraph("Owen Miller")}
-              </h1>
+            {/* Main title with pink text and stroke border */}
+            <h1 className={`${s.bannerTextXl} font-bold text-pink-400 mb-4 inline-block`} style={{
+              WebkitTextStroke: '0.1rem #1e40af'
+            }}>
+              {splitCharactersInParagraph("Owen Miller")}
+            </h1>
 
-              {/* Subtitle with stroke border */}
-              <h2 className={`${s.bannerTextL} font-semibold text-pink-300`} lang="jp">
-                  <span className={ s.borderPunctuation }>(</span>
-                  {"オウェン".split("").map((char, index) => (
-                      <span
-                        key={index}
-                        className={`inline-block ${s.borderText}`}
-                        style={{ transform: 'rotate(3deg)' }}
-                      >
-                        {char === " " ? "\u00A0" : char}
-                      </span>
-                  ))}
-                  <span className={ s.borderPunctuation }>)
-                  </span>
-              </h2>
+            {/* Subtitle with stroke border */}
+            <h2 className={`${s.bannerTextL} font-semibold text-pink-300`} lang="jp">
+              <span className={s.borderPunctuation}>(</span>
+              {"オウェン".split("").map((char, index) => (
+                <span
+                  key={index}
+                  className={`inline-block ${s.borderText}`}
+                  style={{ transform: 'rotate(3deg)' }}
+                >
+                  {char === " " ? "\u00A0" : char}
+                </span>
+              ))}
+              <span className={s.borderPunctuation}>)</span>
+            </h2>
           </div>
         </div>
 
-        <div className={`${s.pageMarginRight} border-radius-5 ${s.augmentedVideo} ${s.neonPinkBorder}`} data-augmented-ui="tr-clip bl-clip br-clip-y both">
+        <div className={`${s.xsPageMarginLeft} mt-10 sm:ml-0 ${s.pageMarginRight} border-radius-5 ${s.augmentedVideo} ${s.neonPinkBorder}  sm:w-auto`}
+             data-augmented-ui="tr-clip bl-clip br-clip-y both" id="header-profile-image">
 
-            <img src={'images/Owen_in_Brunswick.jpg'}/>
-            {/*<video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
-                    <source src="/videos/Owen_highlights.mp4" type="video/mp4"/>
-                    Your browser must not support the video tag.
-                </video>*/}
+          <img
+            src={'images/Owen_in_Brunswick.jpg'}
+            className="w-full h-auto max-w-[400px] object-cover"
+            alt="Owen Miller profile"
+          />
+          {/*<video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
+                          <source src="/videos/Owen_highlights.mp4" type="video/mp4"/>
+                          Your browser must not support the video tag.
+                      </video>*/}
         </div>
-
       </header>
       <main className="text-black">
           <div className={ s.pageMargin }>

@@ -4,6 +4,18 @@
   //margin-right: 5rem;
 }
 
+.xsPageMarginLeft {
+  margin-left: var(--horizontal-page-margin);
+
+  @media(min-width: 640px) {
+    margin-left: 0;
+  }
+}
+
+.pageMarginLeft {
+  margin-left: var(--horizontal-page-margin);
+}
+
 .pageMarginRight {
   margin-right: var(--horizontal-page-margin);
 }
@@ -11,7 +23,7 @@
 .bannerTextXl {
   // Ensure the banner fits nicely
   font-size: calc(max(
-          min(15vw, 8rem),
+          min(12vw, 8rem),
           50px)
   );
   line-height: 110%;
@@ -20,7 +32,7 @@
 .bannerTextL {
   // Ensure the banner fits nicely
   font-size: calc(max(
-          min(9vw, 3.75rem),
+          min(7vw, 3.5rem),
           25px)
   );
   line-height: 110%;
@@ -51,7 +63,7 @@
 
 .neonPinkBorder {
   box-sizing: content-box;   // Padding and border are added to the width and height of the element
-  display: inline-block;  // Shrink-wrap
+  //display: inline-block;  // Shrink-wrap
   position: relative;
 
   &:after {
