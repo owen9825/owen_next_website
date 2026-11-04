@@ -1,0 +1,123 @@
+.float {
+  position: absolute;
+  pointer-events: none;
+  animation: float 9s ease-in-out infinite;
+}
+
+.float:nth-of-type(2n) {
+  animation-duration: 11s;
+  animation-direction: alternate-reverse;
+}
+
+@keyframes float {
+  0%,
+  100% {
+    translate: 0 0;
+    rotate: 0deg;
+  }
+  50% {
+    translate: 0 -16px;
+    rotate: 6deg;
+  }
+}
+
+.holoOrb {
+  width: clamp(80px, 13vw, 170px);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.95) 0 6%, transparent 22%),
+    radial-gradient(circle at 70% 75%, rgba(80, 120, 230, 0.35), transparent 50%),
+    conic-gradient(from 200deg, #a8d8f8, #c8a8f4, #8fe3d3, #e3f6ff, #7fb6f2, #f7a8dc, #a8d8f8);
+  box-shadow:
+    inset -10px -14px 30px rgba(70, 90, 180, 0.35),
+    inset 8px 10px 22px rgba(255, 255, 255, 0.6),
+    0 10px 30px rgba(120, 140, 230, 0.35);
+}
+
+.squiggle {
+  width: clamp(40px, 6vw, 80px);
+  filter: drop-shadow(0 0 6px rgba(143, 227, 211, 0.8));
+}
+
+.pyramid {
+  width: clamp(70px, 11vw, 150px);
+  filter: drop-shadow(0 8px 16px rgba(160, 100, 220, 0.35));
+}
+
+.wire {
+  width: clamp(70px, 10vw, 140px);
+  filter: drop-shadow(0 0 6px rgba(200, 120, 255, 0.8));
+}
+
+.bolt {
+  width: clamp(36px, 5vw, 64px);
+  filter: drop-shadow(0 0 6px rgba(126, 243, 214, 0.6));
+}
+
+.holoTriangle {
+  width: clamp(70px, 10vw, 140px);
+  filter: drop-shadow(0 6px 14px rgba(160, 100, 220, 0.35)) saturate(1.2);
+}
+
+.neonTriangle {
+  position: absolute;
+  pointer-events: none;
+  overflow: visible;
+  filter: drop-shadow(0 0 6px #7ef3ff) drop-shadow(0 0 18px rgba(126, 243, 255, 0.85)) drop-shadow(0 0 40px rgba(180, 140, 255, 0.6));
+  animation: neon-flicker 6s ease-in-out infinite;
+}
+
+@keyframes neon-flicker {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  47% {
+    opacity: 1;
+  }
+  48% {
+    opacity: 0.7;
+  }
+  49% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.85;
+  }
+}
+
+.gridWrap {
+  position: absolute;
+  inset-inline: 0;
+  bottom: 0;
+  height: 55%;
+  perspective: 320px;
+  perspective-origin: 50% 0%;
+  overflow: hidden;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, black 35%);
+  mask-image: linear-gradient(to bottom, transparent, black 35%);
+}
+
+.grid {
+  position: absolute;
+  inset: 0 -50% -40%;
+  transform: rotateX(62deg);
+  transform-origin: 50% 0%;
+  background-color: rgba(250, 140, 220, 0.45);
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.85) 2px, transparent 2px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.85) 2px, transparent 2px);
+  background-size: 60px 60px;
+  animation: grid-scroll 3s linear infinite;
+}
+
+@keyframes grid-scroll {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 60px;
+  }
+}

@@ -1,41 +1,76 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Pastel vaporwave palette */
+  --lilac: #c8a8f4;
+  --lavender: #e3d4ff;
+  --bubblegum: #f7a8dc;
+  --blush: #fbd3e6;
+  --baby-blue: #a8d8f8;
+  --mint: #8fe3d3;
+  --butter: #fdf0a6;
+  --ink: #3a2766;          /* deep violet body text */
+  --ink-soft: #5f4b8b;
+  --stroke-blue: #1e40af;  /* used by the h1 text stroke */
+  --neon-pink: rgba(248, 151, 233, 0.82);
+  --neon-cyan: #7ef3ff;
+
+  --background: #e9dcff;
+  --foreground: var(--ink);
   --horizontal-page-margin: calc(min(10vw, 5rem));
-    --neon-pink: rgba(248, 151, 233, 0.82);
+
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-m-plus-rounded-1c);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  background: var(--background);
 }
 
 body {
-  background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-akatab), sans-serif;
+  font-family: var(--font-m-plus-rounded-1c), var(--font-fredoka), sans-serif;
+  background-color: var(--background);
   background-attachment: fixed;
-  background-image: url('/images/vaporwave_cliffs.webp'),
+  background-image:
+    radial-gradient(ellipse 60% 40% at 15% 20%, rgba(255, 255, 255, 0.55), transparent 70%),
+    radial-gradient(ellipse 50% 35% at 85% 65%, rgba(255, 255, 255, 0.45), transparent 70%),
     linear-gradient(
-          to bottom,
-          #31acd9,
-          #519cb9 55%,
-          #eea9d0 75%,
-          #72c9ef 80%,
-          #425d65 100%
-  );
-  background-size: cover;
+      to bottom,
+      #b9a3f5 0%,
+      #d6b2f0 22%,
+      #f6bfdc 45%,
+      #f9d3e2 58%,
+      #c4dcfa 80%,
+      #a8d8f8 100%
+    );
+  min-height: 100vh;
+}
+
+a {
+  color: #8a3fd1;
+  text-decoration: underline;
+  text-decoration-color: var(--bubblegum);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+
+a:hover,
+a:focus-visible {
+  color: #d63ba6;
+  text-shadow: 0 0 8px rgba(247, 168, 220, 0.9);
+}
+
+::selection {
+  background: var(--bubblegum);
+  color: white;
 }
 
 .font-akatab {
@@ -58,6 +93,12 @@ body {
   font-family: var(--font-m-plus-rounded-1c);
 }
 
-.bg-vaporwave-cliffs {
-
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
