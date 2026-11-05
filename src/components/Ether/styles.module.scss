@@ -1,0 +1,78 @@
+.ether {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background: #e9b9cf;
+}
+
+.sky {
+  position: absolute;
+  inset: -4%;
+  background-image: url("/images/ethereal_clouds.webp");
+  background-size: cover;
+  background-position: center 62%;
+  animation: breathe 60s ease-in-out infinite alternate;
+}
+
+@keyframes breathe {
+  from {
+    transform: scale(1) translate3d(0, 0, 0);
+  }
+  to {
+    transform: scale(1.08) translate3d(-1.5%, -1%, 0);
+  }
+}
+
+// A barely-there dichroic sheen over the whole sky, slowly shifting hue
+.veil {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    120deg,
+    rgba(126, 243, 255, 0.18),
+    rgba(255, 170, 230, 0.12) 35%,
+    rgba(255, 226, 160, 0.14) 60%,
+    rgba(170, 150, 255, 0.18)
+  );
+  mix-blend-mode: soft-light;
+  animation: hue 40s linear infinite;
+}
+
+@keyframes hue {
+  to {
+    filter: hue-rotate(360deg);
+  }
+}
+
+.mist {
+  position: absolute;
+  width: 80vmax;
+  height: 40vmax;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at center, rgba(255, 255, 255, 0.55), rgba(255, 240, 250, 0.2) 45%, transparent 70%);
+  filter: blur(30px);
+  opacity: 0.6;
+}
+
+.mistA {
+  top: 10%;
+  left: -40%;
+  animation: drift 75s ease-in-out infinite alternate;
+}
+
+.mistB {
+  bottom: 0;
+  right: -45%;
+  animation: drift 95s ease-in-out infinite alternate-reverse;
+}
+
+@keyframes drift {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 55vw -6vh;
+  }
+}

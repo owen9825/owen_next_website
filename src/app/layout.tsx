@@ -31,7 +31,7 @@ const fredoka = Fredoka({
 const mPlusRounded1c = M_PLUS_Rounded_1c({
   variable: "--font-m-plus-rounded-1c",
   subsets: ["latin", "latin-ext"],
-  weight: ["400", "500", "700", "800"],
+  weight: ["300", "400", "500", "700", "800"],
   display: "swap",
 });
 

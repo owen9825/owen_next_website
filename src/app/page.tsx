@@ -1,8 +1,6 @@
 import Footer from "@/components/Footer";
-import Window from "@/components/Window";
-import Waves from "@/components/Waves";
-import Dreamscape, { Sparkle } from "@/components/Dreamscape";
-import { Bolt, GridFloor, HoloOrb, HoloTriangle, NeonTriangle, Pyramid, Squiggle, WireOctahedron } from "@/components/Shapes";
+import Glass from "@/components/Glass";
+import Ether from "@/components/Ether";
 import s from './styles.module.scss';
 
 const splitCharactersInSentence = (sentence: string, className: string = "") => (
@@ -43,33 +41,11 @@ const socials = [
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* https://react.dev/reference/react-dom/components/link#special-rendering-behavior */}
-      <link href={"https://cdn.jsdelivr.net/npm/augmented-ui@2.0.0/augmented-ui.min.css"}
-            rel="stylesheet"
-            precedence={"default"}
-            crossOrigin={"anonymous"}
-            integrity={"fG4HX+vLcVwnxSvpq3oQHVC/yRJ+R8b3tXmuYoDYqVk="}
-      />
-      <Dreamscape/>
+      <Ether/>
 
-      {/* Hero */}
-      <div className={`relative z-10 ${s.hero}`}>
-        <Waves variant="backdrop"/>
-        <GridFloor/>
-
-        {/* Collage shapes */}
-        <HoloOrb className={s.shapeOrb}/>
-        <Squiggle className={s.shapeSquiggle}/>
-        <Pyramid className={s.shapePyramid}/>
-        <WireOctahedron className={s.shapeWire}/>
-        <Bolt className={s.shapeBolt}/>
-        <HoloTriangle className={s.shapeHoloTriangle}/>
-
-        <p className={s.verticalJp} lang="ja" aria-hidden="true">夢の世界</p>
-
-        <header className={`relative z-10 flex flex-col sm:flex-row items-center justify-start sm:justify-center h-full font-carter-one ${s.heroInner}`}>
-          <div className={`flex flex-col justify-start`} id={'header-title'}>
-            <div className={`${s.pageMargin} text-left rotate-[-6deg]`}>
+      <header className={`relative z-10 flex flex-col sm:flex-row items-center justify-start sm:justify-center font-carter-one ${s.hero}`}>
+        <div className={`flex flex-col justify-start`} id={'header-title'}>
+            <div className={`${s.pageMargin} text-left rotate-[-6deg] ${s.breeze}`}>
               {/* Main title with pink text and stroke border */}
               <h1 className={`${s.bannerTextXl} font-bold text-pink-400 mb-4 inline-block`} style={{
                 WebkitTextStroke: '0.1rem #1e40af'
@@ -94,33 +70,24 @@ export default function Home() {
             </div>
           </div>
 
-          <div className={`relative ${s.xsPageMarginLeft} mt-14 sm:mt-0 sm:ml-0 ${s.pageMarginRight}`}>
-            <NeonTriangle className={s.photoTriangle}/>
-            <div className={`border-radius-5 ${s.augmentedVideo} ${s.neonPinkBorder} sm:w-auto`}
-                 data-augmented-ui="tr-clip bl-clip br-clip-y both" id="header-profile-image">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={'images/Owen_in_Brunswick.jpg'}
-                className="w-full h-auto max-w-[400px] object-cover"
-                alt="Owen Miller, smiling, with pink hair"
-              />
-              {/*<video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
-                              <source src="/videos/Owen_highlights.mp4" type="video/mp4"/>
-                              Your browser must not support the video tag.
-                          </video>*/}
-            </div>
-            <Sparkle size={28} className={s.photoSparkleA}/>
-            <Sparkle size={18} className={s.photoSparkleB}/>
-          </div>
-        </header>
-      </div>
+        <div className={`relative ${s.xsPageMarginLeft} mt-14 sm:mt-0 sm:ml-0 ${s.pageMarginRight} ${s.portrait}`} id="header-profile-image">
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={'images/Owen_in_Brunswick.jpg'}
+            className="w-full h-auto max-w-[400px] object-cover"
+            alt="Owen Miller, smiling, with pink hair"
+          />
+          {/*<video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
+                          <source src="/videos/Owen_highlights.mp4" type="video/mp4"/>
+                          Your browser must not support the video tag.
+                      </video>*/}
+        </div>
+      </header>
 
-      <Waves className="relative z-10"/>
-
-      <main className={`relative z-10 ${s.pageMargin} ${s.desktop}`}>
-        <Window id="hello" title="hello.txt" icon="👋" tint="pink" className={s.winHello}>
+      <main className={`relative z-10 ${s.pageMargin} ${s.panes}`}>
+        <Glass id="hello" tint="pearl">
           <p className={s.lead}>
-            G&apos;day, I&apos;m Owen ✨ a software engineer in Melbourne, Australia, and an electoral candidate
+            G&apos;day, I&apos;m Owen, a software engineer in Melbourne, Australia, and an electoral candidate
             for the <a href="https://www.fusionparty.org.au/owen_miller">Fusion Party</a>.
           </p>
           <p>
@@ -128,9 +95,9 @@ export default function Home() {
             involvement; or if you&apos;d like to chat about the podcast, then those are good reasons
             to <a href="#contact">reach out</a>.
           </p>
-        </Window>
+        </Glass>
 
-        <Window id="software" title="software_engineering.exe" icon="💾" heading="Software Engineering" tint="blue" className={s.winSoftware}>
+        <Glass id="software" heading="Software Engineering" tint="aqua">
           <p>
             I enjoy software engineering as it&apos;s the most practical way for me to create the future.
           </p>
@@ -140,9 +107,9 @@ export default function Home() {
             and I can add value to large-scale systems like
             the <a href="https://www.amazon.com/gp/yourstore/">recommendations</a> at <a href="https://amazon.com">Amazon.com</a>.
           </p>
-        </Window>
+        </Glass>
 
-        <Window id="politics" title="politics.doc" icon="🗳️" heading="Politics" tint="lilac" className={s.winPolitics}>
+        <Glass id="politics" heading="Politics" tint="violet">
           <p>
             I&apos;m an executive member of the <a href="https://www.fusionparty.org.au/owen_miller">Fusion Party</a>.
           </p>
@@ -152,35 +119,33 @@ export default function Home() {
             If you&apos;re also interested in helping robots and software fill a place in society harmoniously, then
             say hi 🙂
           </p>
-        </Window>
+        </Glass>
 
-        <Window id="podcast" title="my_first_party.mp3" icon="🎙️" heading="Podcast" tint="mint" className={s.winPodcast}>
+        <Glass id="podcast" heading="Podcast" tint="amber">
           <p>
             I co-host <a href="https://www.youtube.com/@MyFirstParty">My First Party</a>, a political podcast aimed at
             inspiring listeners to get involved in grassroots political campaigns, so they can play a part in
             improving their nation, whatever that looks like for them. (I avoid letting the show become simply a
             sermon for Fusion.) Reach out if you have ideas for the show!
           </p>
-        </Window>
+        </Glass>
 
-        <Window id="links" title={"C:\\Owen\\Links"} icon="📁" heading="Find me" tint="pink" className={s.winLinks}>
-          <ul className={s.iconGrid}>
+        <Glass id="links" heading="Find me" tint="rose">
+          <ul className={s.links}>
             {socials.map((social) => (
               <li key={social.name}>
-                <a href={social.url} className={s.desktopIcon} rel="me noopener">
-                  <span className={s.iconTile}>
-                    <svg width="28" height="28" aria-hidden="true">
-                      <use href={`/icons/social-icons.svg#${social.icon}-icon`}/>
-                    </svg>
-                  </span>
-                  <span className={s.iconLabel}>{social.name}</span>
+                <a href={social.url} className={s.link} rel="me noopener">
+                  <svg width="18" height="18" aria-hidden="true">
+                    <use href={`/icons/social-icons.svg#${social.icon}-icon`}/>
+                  </svg>
+                  {social.name}
                 </a>
               </li>
             ))}
           </ul>
-        </Window>
+        </Glass>
 
-        <Window id="contact" title="contact.exe" icon="💌" heading="Contact Me" tint="lilac" className={s.winContact}>
+        <Glass id="contact" heading="Contact Me" tint="pearl">
           {/* TODO: connect to a form handler (the old site posted to kwes.io) */}
           <form className={s.form}>
             <label>
@@ -198,15 +163,12 @@ export default function Home() {
             <p className={s.fullWidth} lang="fr">
               <small>On peut envoyer un message en français si c&apos;est plus facile.</small>
             </p>
-            <button type="submit" className={s.button}>Send ✧</button>
+            <button type="submit" className={s.button}>Send</button>
           </form>
-        </Window>
+        </Glass>
       </main>
 
-      <div className="relative z-10 mt-16">
-        <Waves/>
-        <Footer/>
-      </div>
+      <Footer/>
     </div>
   );
 }

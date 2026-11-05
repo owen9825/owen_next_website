@@ -25,8 +25,7 @@
           50px)
   );
   line-height: 110%;
-  // Soft dreamy halo behind the stroked letters
-  filter: drop-shadow(4px 5px 0 rgba(126, 243, 255, 0.55)) drop-shadow(0 0 18px rgba(255, 255, 255, 0.7));
+  filter: drop-shadow(0 0 22px rgba(255, 255, 255, 0.75));
 }
 
 .bannerTextL {
@@ -36,7 +35,7 @@
           25px)
   );
   line-height: 110%;
-  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.8));
+  filter: drop-shadow(0 0 12px rgba(255, 255, 255, 0.8));
 }
 
 .borderPunctuation {
@@ -47,285 +46,175 @@
   -webkit-text-stroke: 0.01rem #1e40af;
 }
 
+/* ---------- Name fading like a breeze of ether ----------
+   Each character softly fades out and back in, with no movement. The delays are
+   staggered along the name, so a gentle wave of transparency flows through it.
+   Only opacity/filter are animated, leaving the inline rotate intact. */
+
+$ether-duration: 7s;
+$ether-step: 0.22s;
+
+@keyframes ether {
+  0%,
+  100% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  50% {
+    opacity: 0.18;
+    filter: blur(1.5px);
+  }
+}
+
+.breeze {
+  h1 span,
+  h2 span {
+    animation: ether $ether-duration ease-in-out infinite both;
+  }
+
+  // h1: words are the direct <div> children; characters are <span>s within each.
+  // The second word continues the wave from where the first left off.
+  @for $w from 1 through 4 {
+    @for $c from 1 through 14 {
+      h1 > div:nth-child(#{$w}) span:nth-child(#{$c}) {
+        animation-delay: ($w - 1) * 5 * $ether-step + ($c - 1) * $ether-step;
+      }
+    }
+  }
+
+  // h2: the subtitle carries the same wave a moment later
+  @for $c from 1 through 8 {
+    h2 > span:nth-child(#{$c}) {
+      animation-delay: 1.5s + ($c - 1) * $ether-step;
+    }
+  }
+}
+
 /* ---------- Hero ---------- */
 
 .hero {
-  min-height: min(100vh, 58rem);
-  display: flex;
-  align-items: center;
-}
-
-.heroInner {
-  width: 100%;
+  min-height: min(100vh, 56rem);
   gap: clamp(1rem, 6vw, 6rem);
-  padding-block: 7rem 9rem;
+  padding-block: 6rem 5rem;
 }
 
-// Vertical Japanese text, styled like the reference collage: white with a blue offset
-.verticalJp {
-  display: none;
-  position: absolute;
-  z-index: 5;
-  right: 2.5vw;
-  top: 50%;
-  translate: 0 -50%;
-  writing-mode: vertical-rl;
-  font-family: var(--font-m-plus-rounded-1c), sans-serif;
-  font-weight: 800;
-  font-size: clamp(2.5rem, 4.5vw, 4.5rem);
-  letter-spacing: 0.15em;
-  color: white;
-  text-shadow: 5px 5px 0 #3b2bf0;
-  pointer-events: none;
+// Portrait set in a pane of dichroic glass
+.portrait {
+  padding: 12px;
+  border-radius: 28px;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.35), rgba(255, 210, 235, 0.12));
+  -webkit-backdrop-filter: blur(18px) saturate(170%);
+  backdrop-filter: blur(18px) saturate(170%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.8),
+    0 30px 70px -25px rgba(80, 40, 140, 0.45),
+    0 0 60px rgba(255, 220, 245, 0.45);
+  isolation: isolate;
+  animation: hover-float 10s ease-in-out infinite;
 
-  @media (min-width: 1440px) {
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    padding: 2px;
+    border-radius: inherit;
+    background: conic-gradient(from var(--portrait-angle, 0deg), #7ef3ff, #b49bff, #ff9fd6, #ffd89a, #9fffe0, #7ef3ff);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    animation: portrait-turn 12s linear infinite;
+  }
+
+  img {
+    border-radius: 18px;
     display: block;
   }
 }
 
-.shapeOrb {
-  top: 7%;
-  left: 4%;
+@property --portrait-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
 }
 
-.shapeSquiggle {
-  top: 4%;
-  left: 47%;
-}
-
-.shapePyramid {
-  top: 14%;
-  right: 12%;
-}
-
-.shapeWire {
-  bottom: 9%;
-  left: 3%;
-}
-
-.shapeBolt {
-  bottom: 6%;
-  left: 44%;
-}
-
-.shapeHoloTriangle {
-  bottom: 12%;
-  right: 4%;
-}
-
-@media (max-width: 639px) {
-  .shapePyramid {
-    top: auto;
-    bottom: 42%;
-    right: 3%;
-  }
-
-  .shapeSquiggle {
-    left: auto;
-    right: 10%;
-  }
-
-  .shapeBolt {
-    left: 70%;
-    bottom: 3%;
-  }
-
-  .shapeHoloTriangle {
-    display: none;
+@keyframes portrait-turn {
+  to {
+    --portrait-angle: 360deg;
   }
 }
 
-.photoTriangle {
-  width: 150%;
-  left: -32%;
-  top: -26%;
-  z-index: -1;
-}
-
-.photoSparkleA,
-.photoSparkleB {
-  position: absolute;
-  z-index: 12;
-  filter: drop-shadow(0 0 6px white);
-  animation: twinkle 2.8s ease-in-out infinite;
-}
-
-.photoSparkleA {
-  top: -12px;
-  right: -12px;
-}
-
-.photoSparkleB {
-  bottom: 18%;
-  left: -10px;
-  animation-delay: 1.2s;
-}
-
-@keyframes twinkle {
+@keyframes hover-float {
   0%,
   100% {
-    opacity: 0.3;
-    transform: scale(0.6) rotate(0deg);
+    translate: 0 0;
   }
   50% {
-    opacity: 1;
-    transform: scale(1.1) rotate(45deg);
+    translate: 0 -10px;
   }
 }
 
-.augmentedVideo {
-  --aug-tr: 25px;
-  --aug-bl: 57px;
-  --aug-br: 25px;
-  --aug-br-inset2: 40%;
-  --aug-border-all: 8px;
-  --aug-border-bg: linear-gradient(
-                  135deg,
-                  #7ef3ff,
-                  #c8a8f4 45%,
-                  #f7a8dc
-  );
-  --aug-inlay-all: 8px;
-  --aug-inlay-bg: #fdf0a6;
-}
+/* ---------- Glass panes ---------- */
 
-.neonPinkBorder {
-  box-sizing: content-box;   // Padding and border are added to the width and height of the element
-  position: relative;
-
-  &:after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    width: 100%; /* Full width of the parent */
-    height: 100%; /* Same height as your border */
-    background-color: transparent;
-    box-shadow:
-            // x, y, blur-radius, color
-            0 0 5px var(--neon-pink);
-    animation: neon-pink-glow 5s ease-in-out infinite alternate;
-    z-index: 10;
-    pointer-events: none;
-  }
-}
-
-.neon-pink-glow {
-  &:hover {
-      animation: neon-pink-glow 5s ease-in-out infinite alternate;
-  }
-}
-
-@keyframes neon-pink-glow {
-  from {
-    box-shadow:
-            0 0 10px #fff,
-            0 0 20px #fff,
-            0 0 30px #fff,
-            0 0 40px #F897E9EA,
-            0 0 70px #F897E9EA,
-            0 0 80px #F897E9EA,
-            0 0 100px #F897E9EA,
-            0 0 150px #F897E9EA;
-  }
-  to {
-    box-shadow:
-            0 0 5px #F897E9EA,
-            0 0 10px #F897E9EA,
-            0 0 15px #fff,
-            0 0 20px #F897E9EA,
-            0 0 35px #F897E9EA,
-            0 0 40px #F897E9EA,
-            0 0 50px #F897E9EA,
-            0 0 75px #F897E9EA;
-  }
-}
-
-/* ---------- Desktop of windows ---------- */
-
-.desktop {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2rem;
-  max-width: 72rem;
-  padding-top: 2rem;
-
-  @media (min-width: 1280px) {
-    margin-inline: auto;
-  }
+.panes {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 3.5rem);
+  max-width: 46rem;
 
   @media (min-width: 900px) {
-    grid-template-columns: repeat(12, 1fr);
-    gap: 2.5rem 2rem;
-    align-items: start;
+    margin-inline: auto;
 
-    // A loose, collage-like arrangement
-    .winHello    { grid-column: 1 / span 8; }
-    .winSoftware { grid-column: 5 / span 8; }
-    .winPolitics { grid-column: 1 / span 7; }
-    .winPodcast  { grid-column: 8 / span 5; align-self: start; margin-top: 3rem; }
-    .winLinks    { grid-column: 1 / span 5; align-self: start; }
-    .winContact  { grid-column: 6 / span 7; }
+    // Panes float slightly off-centre, alternating, as if suspended
+    > section {
+      position: relative;
+    }
+
+    > section:nth-child(odd) {
+      left: -6%;
+    }
+
+    > section:nth-child(even) {
+      left: 6%;
+    }
   }
 }
 
 .lead {
   font-size: 1.2rem;
-  font-weight: 500;
 }
 
-.iconGrid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(5.5rem, 1fr));
-  gap: 1rem 0.5rem;
-}
-
-.desktopIcon {
+.links {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.link {
+  display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.5rem;
+  padding: 0.45rem 1rem;
+  border-radius: 999px;
   text-decoration: none;
+  font-size: 0.92rem;
   color: var(--ink);
-  border-radius: 6px;
-  padding: 0.4rem 0.2rem;
+  background: rgba(255, 255, 255, 0.4);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8), 0 4px 14px -6px rgba(80, 40, 140, 0.4);
+  transition: background 0.3s, box-shadow 0.3s, translate 0.3s;
+
+  svg {
+    fill: currentColor;
+  }
 
   &:hover,
   &:focus-visible {
     color: var(--ink);
-    background: rgba(200, 168, 244, 0.25);
-
-    .iconTile {
-      transform: translateY(-3px) rotate(-4deg);
-      box-shadow: 0 0 18px rgba(247, 168, 220, 0.9), inset 0 2px 0 rgba(255, 255, 255, 0.8);
-    }
+    text-shadow: none;
+    translate: 0 -2px;
+    background: rgba(255, 255, 255, 0.65);
+    box-shadow: inset 0 1px 0 #fff, 0 0 24px rgba(180, 155, 255, 0.6);
   }
-}
-
-.iconTile {
-  display: grid;
-  place-items: center;
-  width: 3.25rem;
-  height: 3.25rem;
-  border-radius: 14px;
-  color: white;
-  fill: currentColor;
-  background: linear-gradient(145deg, #c8a8f4, #f7a8dc 60%, #fdd0b8);
-  box-shadow: 0 6px 12px -4px rgba(122, 76, 196, 0.6), inset 0 2px 0 rgba(255, 255, 255, 0.6);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-  svg {
-    fill: currentColor;
-    filter: drop-shadow(1px 1px 0 rgba(90, 50, 150, 0.4));
-  }
-}
-
-.iconLabel {
-  font-family: var(--font-geist-mono), monospace;
-  font-size: 0.72rem;
-  letter-spacing: 0.06em;
-  text-align: center;
-  line-height: 1.25;
 }
 
 /* ---------- Contact form ---------- */
@@ -333,7 +222,7 @@
 .form {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 0.9rem;
+  gap: 1rem;
 
   @media (min-width: 560px) {
     grid-template-columns: 1fr 1fr;
@@ -342,37 +231,32 @@
   label {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
-    font-weight: 600;
-    font-size: 0.9rem;
+    gap: 0.35rem;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
     color: var(--ink-soft);
   }
 
   input,
   textarea {
     font: inherit;
-    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: normal;
     color: var(--ink);
-    padding: 0.55rem 0.7rem;
-    background: #fdfaff;
-    border-radius: 3px;
-    border: none;
-    box-shadow:
-      inset 2px 2px 0 rgba(90, 60, 140, 0.4),
-      inset -2px -2px 0 #ffffff;
+    padding: 0.65rem 0.9rem;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    background: rgba(255, 255, 255, 0.45);
     outline: none;
-    transition: box-shadow 0.2s;
+    transition: box-shadow 0.3s, background 0.3s;
 
     &::placeholder {
-      color: #a998c8;
+      color: #8f80b3;
     }
 
     &:focus {
-      box-shadow:
-        inset 2px 2px 0 rgba(90, 60, 140, 0.4),
-        inset -2px -2px 0 #ffffff,
-        0 0 0 3px rgba(247, 168, 220, 0.7),
-        0 0 16px rgba(247, 168, 220, 0.7);
+      background: rgba(255, 255, 255, 0.7);
+      box-shadow: 0 0 0 3px rgba(180, 155, 255, 0.45), 0 0 24px rgba(126, 243, 255, 0.45);
     }
   }
 
@@ -388,33 +272,22 @@
 .button {
   grid-column: 1 / -1;
   justify-self: end;
-  font-family: var(--font-geist-mono), monospace;
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  padding: 0.5rem 1.4rem;
-  color: white;
-  text-shadow: 1px 1px 0 rgba(90, 50, 150, 0.5);
-  background: linear-gradient(90deg, #a98af0, #f493c9);
-  border-radius: 4px;
+  padding: 0.65rem 2rem;
+  border-radius: 999px;
+  font-size: 0.95rem;
+  letter-spacing: 0.12em;
+  color: var(--ink);
   cursor: pointer;
-  box-shadow:
-    inset 2px 2px 0 rgba(255, 255, 255, 0.6),
-    inset -2px -2px 0 rgba(90, 50, 150, 0.45),
-    0 4px 12px -2px rgba(160, 90, 220, 0.5);
-  transition: transform 0.15s, box-shadow 0.2s;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)) padding-box,
+    linear-gradient(120deg, #7ef3ff, #b49bff, #ff9fd6, #ffd89a) border-box;
+  border: 1.5px solid transparent;
+  box-shadow: 0 6px 20px -8px rgba(80, 40, 140, 0.5);
+  transition: box-shadow 0.3s, translate 0.3s;
 
   &:hover,
   &:focus-visible {
-    box-shadow:
-      inset 2px 2px 0 rgba(255, 255, 255, 0.6),
-      inset -2px -2px 0 rgba(90, 50, 150, 0.45),
-      0 0 22px rgba(247, 168, 220, 0.95);
-  }
-
-  &:active {
-    transform: translate(1px, 1px);
-    box-shadow:
-      inset -2px -2px 0 rgba(255, 255, 255, 0.6),
-      inset 2px 2px 0 rgba(90, 50, 150, 0.45);
+    translate: 0 -2px;
+    box-shadow: 0 0 28px rgba(180, 155, 255, 0.7);
   }
 }
