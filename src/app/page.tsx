@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Ether from "@/components/Ether";
+import { GlassCube, GlassPyramid, GlassSphere } from "@/components/GlassShapes";
 import s from './styles.module.scss';
 
 const splitCharactersInSentence = (sentence: string, className: string = "") => (
@@ -37,28 +38,47 @@ const socials = [
   { name: "Spotify", icon: "spotify", url: "https://open.spotify.com/user/12140765598" },
 ];
 
+const navItems = [
+  { label: "About", href: "#about" },
+  { label: "Software", href: "#software" },
+  { label: "Politics", href: "#politics" },
+  { label: "Podcast", href: "#podcast" },
+];
+
 export default function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <Ether/>
 
-      {/* Gradient map that recolours a photo into the violet/pink of the backdrop:
-          shadows → deep indigo, midtones → amethyst and magenta, highlights → pale lilac */}
+      {/* Gradient map that recolours the portrait in pastel purple:
+          shadows → muted violet, midtones → lavender, highlights → near white */}
       <svg width="0" height="0" className="absolute" aria-hidden="true" focusable="false">
-        <filter id="amethyst-tone" colorInterpolationFilters="sRGB">
+        <filter id="pastel-purple" colorInterpolationFilters="sRGB">
           <feColorMatrix type="saturate" values="0"/>
           <feComponentTransfer>
-            <feFuncR type="table" tableValues="0.118 0.357 0.769 1 0.992"/>
-            <feFuncG type="table" tableValues="0.063 0.184 0.373 0.608 0.914"/>
-            <feFuncB type="table" tableValues="0.314 0.690 0.847 0.910 1"/>
+            <feFuncR type="table" tableValues="0.29 0.616 0.851 0.973"/>
+            <feFuncG type="table" tableValues="0.227 0.549 0.788 0.949"/>
+            <feFuncB type="table" tableValues="0.549 0.878 1 1"/>
           </feComponentTransfer>
         </filter>
       </svg>
 
+      <nav className={`relative z-20 ${s.nav}`} aria-label="Main">
+        <a href="#" className={s.brand}>
+          <span className={s.brandMark} aria-hidden="true">OM</span>
+          <span>Owen Miller</span>
+        </a>
+        <ul className={s.navLinks}>
+          {navItems.map((item) => (
+            <li key={item.href}><a href={item.href}>{item.label}</a></li>
+          ))}
+        </ul>
+        <a href="#contact" className={s.buttonPrimary}>Get in touch</a>
+      </nav>
+
       <header className={`relative z-10 ${s.hero}`}>
-        <div className={`${s.pageMargin} ${s.breeze} ${s.titleBlock}`} id={'header-title'}>
-          {/* Name in glass, lit by neon */}
-          <h1 className={s.neonGlass}>
+        <div className={`${s.breeze} ${s.titleBlock}`} id={'header-title'}>
+          <h1 className={s.title}>
             {splitCharactersInParagraph("Owen Miller")}
           </h1>
 
@@ -76,25 +96,42 @@ export default function Home() {
             <span className={s.bracket}>)</span>
           </h2>
 
-          <p className={s.tagline}>Software engineer&nbsp;&nbsp;·&nbsp;&nbsp;Melbourne</p>
+          <p className={s.heroText}>
+            Software engineer in Melbourne, founder of the Non-Human Party, and co-host of the
+            My First Party podcast.
+          </p>
+
+          <div className={s.heroActions}>
+            <a href="#contact" className={s.buttonPrimary}>Get in touch</a>
+            <a href="https://www.youtube.com/@MyFirstParty" className={s.buttonGlass}>Watch the podcast</a>
+          </div>
+        </div>
+
+        <div className={s.shapes}>
+          <GlassCube className={s.shapeCube}/>
+          <GlassSphere className={s.shapeSphere}/>
+          <GlassPyramid className={s.shapePyramid}/>
         </div>
       </header>
 
-      <main className={`relative z-10 ${s.pageMargin}`}>
-        <article className={s.amethyst}>
-          <div className={s.intro}>
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              src={'images/Owen_in_Brunswick.jpg'}
-              className={s.portrait}
-              id="header-profile-image"
-              alt="Owen Miller, smiling, with pink hair"
-            />
+      <main className={`relative z-10 ${s.main}`}>
+        <section id="about" aria-labelledby="about-heading" className={s.section}>
+          <h2 id="about-heading" className={s.sectionHeading}>About</h2>
+          <div className={`${s.card} ${s.about}`}>
+            <div className={s.portraitFrame}>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={'images/Owen_in_Brunswick.jpg'}
+                className={s.portrait}
+                id="header-profile-image"
+                alt="Owen Miller, smiling"
+              />
+            </div>
             {/*<video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
                             <source src="/videos/Owen_highlights.mp4" type="video/mp4"/>
                             Your browser must not support the video tag.
                         </video>*/}
-            <div>
+            <div className={s.prose}>
               <p className={s.lead}>
                 G&apos;day, I&apos;m Owen, a software engineer in Melbourne, Australia, and an electoral candidate
                 for the <a href="https://www.fusionparty.org.au/owen_miller">Fusion Party</a>.
@@ -106,61 +143,68 @@ export default function Home() {
               </p>
             </div>
           </div>
+        </section>
 
-          <section id="software" aria-labelledby="software-heading">
-            <h2 id="software-heading">Software Engineering</h2>
-            <p>
-              I enjoy software engineering as it&apos;s the most practical way for me to create the future.
-            </p>
-            <p>
-              I can build software from the ground up at small start-ups
-              (<a href="https://bevrly.com/sheets/">Bevrly 🍷</a>, <a href="https://tanuki.ai">Tanuki.ai</a>, <a href="http://wx.io">Wx.io</a>)
-              and I can add value to large-scale systems like
-              the <a href="https://www.amazon.com/gp/yourstore/">recommendations</a> at <a href="https://amazon.com">Amazon.com</a>.
-            </p>
-          </section>
+        <section aria-labelledby="work-heading" className={s.section}>
+          <h2 id="work-heading" className={s.sectionHeading}>What I do</h2>
+          <div className={s.cardGrid}>
+            <article id="software" className={s.card}>
+              <h3>Software Engineering</h3>
+              <p>
+                I enjoy software engineering as it&apos;s the most practical way for me to create the future.
+              </p>
+              <p>
+                I can build software from the ground up at small start-ups
+                (<a href="https://bevrly.com/sheets/">Bevrly 🍷</a>, <a href="https://tanuki.ai">Tanuki.ai</a>, <a href="http://wx.io">Wx.io</a>)
+                and I can add value to large-scale systems like
+                the <a href="https://www.amazon.com/gp/yourstore/">recommendations</a> at <a href="https://amazon.com">Amazon.com</a>.
+              </p>
+            </article>
 
-          <section id="politics" aria-labelledby="politics-heading">
-            <h2 id="politics-heading">Politics</h2>
-            <p>
-              I&apos;m an executive member of the <a href="https://www.fusionparty.org.au/owen_miller">Fusion Party</a>.
-            </p>
-            <p>
-              I&apos;m also the founder of the <a href="https://nonhuman.party">Non-Human Party</a>,
-              bringing <a href="https://www.youtube.com/watch?v=Xp2Bgk9Lf8Y">Nationality as a Service</a> to Australia.
-              If you&apos;re also interested in helping robots and software fill a place in society harmoniously, then
-              say hi 🙂
-            </p>
-          </section>
+            <article id="politics" className={s.card}>
+              <h3>Politics</h3>
+              <p>
+                I&apos;m an executive member of the <a href="https://www.fusionparty.org.au/owen_miller">Fusion Party</a>.
+              </p>
+              <p>
+                I&apos;m also the founder of the <a href="https://nonhuman.party">Non-Human Party</a>,
+                bringing <a href="https://www.youtube.com/watch?v=Xp2Bgk9Lf8Y">Nationality as a Service</a> to Australia.
+                If you&apos;re also interested in helping robots and software fill a place in society harmoniously, then
+                say hi 🙂
+              </p>
+            </article>
 
-          <section id="podcast" aria-labelledby="podcast-heading">
-            <h2 id="podcast-heading">Podcast</h2>
-            <p>
-              I co-host <a href="https://www.youtube.com/@MyFirstParty">My First Party</a>, a political podcast aimed at
-              inspiring listeners to get involved in grassroots political campaigns, so they can play a part in
-              improving their nation, whatever that looks like for them. (I avoid letting the show become simply a
-              sermon for Fusion.) Reach out if you have ideas for the show!
-            </p>
-          </section>
+            <article id="podcast" className={s.card}>
+              <h3>Podcast</h3>
+              <p>
+                I co-host <a href="https://www.youtube.com/@MyFirstParty">My First Party</a>, a political podcast aimed at
+                inspiring listeners to get involved in grassroots political campaigns, so they can play a part in
+                improving their nation, whatever that looks like for them. (I avoid letting the show become simply a
+                sermon for Fusion.) Reach out if you have ideas for the show!
+              </p>
+            </article>
+          </div>
+        </section>
 
-          <section id="links" aria-labelledby="links-heading">
-            <h2 id="links-heading">Find me</h2>
-            <ul className={s.links}>
-              {socials.map((social) => (
-                <li key={social.name}>
-                  <a href={social.url} className={s.link} rel="me noopener">
-                    <svg width="16" height="16" aria-hidden="true">
-                      <use href={`/icons/social-icons.svg#${social.icon}-icon`}/>
-                    </svg>
-                    {social.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
+        <section id="links" aria-labelledby="links-heading" className={s.section}>
+          <h2 id="links-heading" className={s.sectionHeading}>Find me</h2>
+          <ul className={s.links}>
+            {socials.map((social) => (
+              <li key={social.name}>
+                <a href={social.url} className={s.link} rel="me noopener">
+                  <svg width="16" height="16" aria-hidden="true">
+                    <use href={`/icons/social-icons.svg#${social.icon}-icon`}/>
+                  </svg>
+                  {social.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
 
-          <section id="contact" aria-labelledby="contact-heading">
-            <h2 id="contact-heading">Contact Me</h2>
+        <section id="contact" aria-labelledby="contact-heading" className={s.section}>
+          <h2 id="contact-heading" className={s.sectionHeading}>Contact me</h2>
+          <div className={s.card}>
             {/* TODO: connect to a form handler (the old site posted to kwes.io) */}
             <form className={s.form}>
               <label>
@@ -178,10 +222,10 @@ export default function Home() {
               <p className={s.fullWidth} lang="fr">
                 <small>On peut envoyer un message en français si c&apos;est plus facile.</small>
               </p>
-              <button type="submit" className={s.button}>Send</button>
+              <button type="submit" className={`${s.buttonPrimary} ${s.submit}`}>Send message</button>
             </form>
-          </section>
-        </article>
+          </div>
+        </section>
       </main>
 
       <Footer/>

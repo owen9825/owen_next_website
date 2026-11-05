@@ -1,64 +1,74 @@
 @import "tailwindcss";
 
 :root {
-  /* Violet fog / amethyst palette */
-  --night: #2a1a6e;
-  --amethyst: #6b3fb8;
-  --amethyst-deep: #3b1f7a;
-  --lavender: #e4d8ff;
-  --mist: #f3ecff;
-  --neon-pink: #ff7ce5;
-  --neon-violet: #b18cff;
-  --neon-cyan: #8ff0ff;
+  /* Pale, luminous palette */
+  --ink: #1d1b4b;          /* deep navy text */
+  --ink-soft: #565a85;
+  --navy: #26237a;
+  --blue: #4f5bff;
+  --periwinkle: #8f9bff;
+  --lilac: #c9b8ff;
+  --pink: #ff8fc8;
+  --blush: #ffd3ec;
 
-  --background: #4b2fa0;
-  --foreground: var(--mist);
-  --horizontal-page-margin: calc(min(8vw, 5rem));
+  --glass: rgba(255, 255, 255, 0.55);
+  --glass-strong: rgba(255, 255, 255, 0.72);
+  --glass-edge: rgba(255, 255, 255, 0.85);
 
-  color-scheme: dark;
+  /* Pink on the left to dark blue on the right */
+  --accent-gradient: linear-gradient(90deg, #ff8fc8 0%, #b98cff 45%, #5b5ff0 75%, #26237a 100%);
+
+  --background: #f2efff;
+  --foreground: var(--ink);
+  --horizontal-page-margin: calc(min(6vw, 4rem));
+
+  color-scheme: light;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-josefin-sans);
+  --font-sans: var(--font-manrope);
   --font-serif: var(--font-bodoni-moda);
 }
 
 html {
   background: var(--background);
+  scroll-behavior: smooth;
 }
 
 body {
   color: var(--foreground);
-  font-family: var(--font-josefin-sans), sans-serif;
-  font-weight: 300;
+  font-family: var(--font-manrope), sans-serif;
   background-color: var(--background);
   min-height: 100vh;
 }
 
 a {
-  color: #ffc4f1;
+  color: #4b3fd0;
   text-decoration: underline;
-  text-decoration-color: rgba(255, 124, 229, 0.55);
-  text-decoration-thickness: 1px;
+  text-decoration-color: rgba(255, 143, 200, 0.7);
+  text-decoration-thickness: 1.5px;
   text-underline-offset: 4px;
-  transition: color 0.3s, text-shadow 0.3s, text-decoration-color 0.3s;
+  transition: color 0.25s, text-decoration-color 0.25s;
 }
 
 a:hover,
 a:focus-visible {
-  color: #fff;
-  text-decoration-color: var(--neon-pink);
-  text-shadow: 0 0 6px var(--neon-pink), 0 0 16px rgba(255, 124, 229, 0.6);
+  color: #d1489a;
+  text-decoration-color: currentColor;
 }
 
 ::selection {
-  background: var(--neon-pink);
-  color: var(--amethyst-deep);
+  background: var(--blush);
+  color: var(--navy);
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {

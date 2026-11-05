@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Josefin_Sans, Shippori_Mincho } from "next/font/google";
+import { Bodoni_Moda, Manrope, Shippori_Mincho } from "next/font/google";
 import "./globals.css";
 
 // Display: a high-contrast italic serif, like the English copy on 80s Japanese ads
@@ -10,11 +10,11 @@ const bodoniModa = Bodoni_Moda({
   display: "swap",
 });
 
-// Headings and body: a slim geometric sans with an art-deco, late-night-Tokyo feel
-const josefinSans = Josefin_Sans({
-  variable: "--font-josefin-sans",
+// Headings and body: a clean, modern sans
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "600"],
+  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
 });
 
@@ -39,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bodoniModa.variable} ${josefinSans.variable} ${shipporiMincho.variable}`}>
+    <html lang="en" className={`${bodoniModa.variable} ${manrope.variable} ${shipporiMincho.variable}`}>
       <body className="antialiased">
         {children}
       </body>

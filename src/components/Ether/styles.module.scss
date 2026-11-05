@@ -4,53 +4,50 @@
   z-index: 0;
   overflow: hidden;
   pointer-events: none;
-  background: linear-gradient(to bottom, #b9a6ff, #f2b6f0 40%, #8a55e0 60%, #3a2496);
+  background:
+    radial-gradient(ellipse 70% 60% at 0% 0%, rgba(255, 255, 255, 0.95), transparent 60%),
+    linear-gradient(135deg, #f7f4ff 0%, #ece6ff 35%, #e4ddff 60%, #d3d6ff 85%, #bcc4ff 100%);
 }
 
-.sky {
+.glow {
   position: absolute;
-  inset: -3%;
-  background-image: url("/images/violet_fog_city.webp");
-  background-size: cover;
-  background-position: center 40%;
-  animation: breathe 70s ease-in-out infinite alternate;
-}
-
-@keyframes breathe {
-  from {
-    transform: scale(1);
-  }
-  to {
-    transform: scale(1.06) translate3d(0, -1%, 0);
-  }
-}
-
-.fog {
-  position: absolute;
-  width: 90vmax;
-  height: 35vmax;
   border-radius: 50%;
-  background: radial-gradient(ellipse at center, rgba(214, 180, 255, 0.45), rgba(170, 120, 240, 0.15) 50%, transparent 70%);
-  filter: blur(40px);
+  filter: blur(80px);
+  opacity: 0.75;
 }
 
-.fogA {
-  top: 45%;
-  left: -50%;
-  animation: drift 90s ease-in-out infinite alternate;
+.glowBlue {
+  width: 55vmax;
+  height: 55vmax;
+  top: -20vmax;
+  right: -18vmax;
+  background: radial-gradient(circle, #8f9bff, rgba(143, 155, 255, 0) 70%);
+  animation: wander 40s ease-in-out infinite alternate;
 }
 
-.fogB {
-  bottom: -10%;
-  right: -55%;
-  animation: drift 120s ease-in-out infinite alternate-reverse;
+.glowPink {
+  width: 45vmax;
+  height: 45vmax;
+  top: 30vh;
+  left: -15vmax;
+  background: radial-gradient(circle, #ffc6e8, rgba(255, 198, 232, 0) 70%);
+  animation: wander 52s ease-in-out infinite alternate-reverse;
 }
 
-@keyframes drift {
+.glowLilac {
+  width: 50vmax;
+  height: 50vmax;
+  bottom: -25vmax;
+  right: 5vw;
+  background: radial-gradient(circle, #d2c2ff, rgba(210, 194, 255, 0) 70%);
+  animation: wander 46s ease-in-out infinite alternate;
+}
+
+@keyframes wander {
   from {
     translate: 0 0;
   }
   to {
-    translate: 60vw -4vh;
+    translate: 6vw 5vh;
   }
 }
