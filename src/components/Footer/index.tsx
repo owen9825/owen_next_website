@@ -9,7 +9,7 @@ const Footer = () => (
         <span className={s.copyright}>© Owen Miller {(new Date()).getFullYear()}</span>
         <span className={s.tray}>
             <span aria-hidden="true">♡ ☁ ✧</span>
-            <span>Naarm / Melbourne</span>
+            <span>Melbourne</span>
         </span>
     </footer>
 );
