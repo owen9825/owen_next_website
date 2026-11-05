@@ -1,38 +1,30 @@
 import type { Metadata } from "next";
-import { Akatab, Carter_One, Geist_Mono, Fredoka, M_PLUS_Rounded_1c } from "next/font/google";
+import { Bodoni_Moda, Josefin_Sans, Shippori_Mincho } from "next/font/google";
 import "./globals.css";
 
-const akatab = Akatab({
-  variable: "--font-akatab",
-  subsets: ["latin", "latin-ext"],
-  display: "swap",
-  weight: ["400", "500", "600", "700", "800", "900"]
-})
-
-const carterOne = Carter_One({
-  variable: "--font-carter-one",
+// Display: a high-contrast italic serif, like the English copy on 80s Japanese ads
+const bodoniModa = Bodoni_Moda({
+  variable: "--font-bodoni-moda",
   subsets: ["latin"],
+  style: ["normal", "italic"],
   display: "swap",
-  weight: ["400"]
-})
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
 });
 
-const fredoka = Fredoka({
-  variable: "--font-fredoka",
-  subsets: ["latin"],
+// Headings and body: a slim geometric sans with an art-deco, late-night-Tokyo feel
+const josefinSans = Josefin_Sans({
+  variable: "--font-josefin-sans",
+  subsets: ["latin", "latin-ext"],
+  weight: ["300", "400", "600"],
   display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
 });
 
-const mPlusRounded1c = M_PLUS_Rounded_1c({
-  variable: "--font-m-plus-rounded-1c",
-  subsets: ["latin", "latin-ext"],
-  weight: ["300", "400", "500", "700", "800"],
+// Japanese: an elegant mincho serif for オウェン
+const shipporiMincho = Shippori_Mincho({
+  variable: "--font-shippori-mincho",
+  subsets: ["latin"],
+  weight: ["400", "500"],
   display: "swap",
+  preload: false,
 });
 
 export const metadata: Metadata = {
@@ -47,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${akatab.variable} ${carterOne.variable} ${geistMono.variable} ${fredoka.variable} ${mPlusRounded1c.variable}`}>
+    <html lang="en" className={`${bodoniModa.variable} ${josefinSans.variable} ${shipporiMincho.variable}`}>
       <body className="antialiased">
         {children}
       </body>
