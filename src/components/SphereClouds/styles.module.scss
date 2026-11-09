@@ -1,4 +1,6 @@
 .sky {
+  // Hidden for now; remove this line to bring the clouds back
+  display: none;
   position: absolute;
   inset: 0;
   z-index: -1;
