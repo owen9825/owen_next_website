@@ -158,6 +158,13 @@ $content-width: 72rem;
   min-width: 0;
 }
 
+// The name and the clouds drifting behind it
+.titleStage {
+  position: relative;
+  isolation: isolate;
+  display: inline-block;
+}
+
 // Very large name, each letter cast in glass: deep navy through violet to pink,
 // with a bright reflection across the middle and a soft neon bloom
 .title {
@@ -217,34 +224,14 @@ $content-width: 72rem;
   margin-top: 2rem;
 }
 
-.shapes {
-  position: relative;
-  height: clamp(260px, 36vw, 440px);
-
-  @media (max-width: 959px) {
-    height: 280px;
-    max-width: 30rem;
-    width: 100%;
-    margin-inline: auto;
+@keyframes drift-float {
+  0%,
+  100% {
+    translate: 0 0;
   }
-}
-
-.shapeCube {
-  position: absolute;
-  top: 18%;
-  left: 14%;
-}
-
-.shapeSphere {
-  position: absolute;
-  top: 0;
-  right: 6%;
-}
-
-.shapePyramid {
-  position: absolute;
-  bottom: 0;
-  right: 0;
+  50% {
+    translate: 0 -10px;
+  }
 }
 
 /* ---------- Name fading like a breeze of ether ----------
@@ -369,27 +356,20 @@ $ether-step: 0.22s;
   }
 }
 
-.about {
-  display: grid;
-  gap: 1.75rem;
-  align-items: center;
-
-  @media (min-width: 700px) {
-    grid-template-columns: 14rem 1fr;
-    gap: 2.5rem;
-  }
-}
-
 // Portrait: recoloured pastel purple, with an orange-to-blue gradient laid across it
 .portraitFrame {
   position: relative;
   width: 100%;
-  max-width: 16rem;
+  max-width: 26rem;
+  justify-self: center;
   aspect-ratio: 1;
-  border-radius: 22px;
+  border-radius: 32px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow: 0 20px 40px -18px rgba(70, 60, 200, 0.5);
+  box-shadow:
+    0 0 0 8px rgba(255, 255, 255, 0.35),
+    0 40px 80px -30px rgba(70, 60, 200, 0.55);
+  animation: drift-float 12s ease-in-out infinite;
 
   &::after {
     content: "";

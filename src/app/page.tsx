@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Ether from "@/components/Ether";
-import { GlassCube, GlassPyramid, GlassSphere } from "@/components/GlassShapes";
+import SphereClouds from "@/components/SphereClouds";
+import Charm from "@/components/Charm";
 import s from './styles.module.scss';
 
 const splitCharactersInSentence = (sentence: string, className: string = "") => (
@@ -49,6 +50,7 @@ export default function Home() {
   return (
     <div className="relative min-h-screen overflow-hidden">
       <Ether/>
+      <Charm/>
 
       {/* Gradient map that recolours the portrait in pastel purple:
           shadows → muted violet, midtones → lavender, highlights → near white */}
@@ -78,9 +80,12 @@ export default function Home() {
 
       <header className={`relative z-10 ${s.hero}`}>
         <div className={`${s.breeze} ${s.titleBlock}`} id={'header-title'}>
-          <h1 className={s.title}>
-            {splitCharactersInParagraph("Owen Miller")}
-          </h1>
+          <div className={s.titleStage}>
+            <SphereClouds/>
+            <h1 className={s.title}>
+              {splitCharactersInParagraph("Owen Miller")}
+            </h1>
+          </div>
 
           <h2 className={s.japanese} lang="ja">
             <span className={s.bracket}>(</span>
@@ -107,30 +112,25 @@ export default function Home() {
           </div>
         </div>
 
-        <div className={s.shapes}>
-          <GlassCube className={s.shapeCube}/>
-          <GlassSphere className={s.shapeSphere}/>
-          <GlassPyramid className={s.shapePyramid}/>
+        <div className={s.portraitFrame}>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src={'images/Owen_in_Brunswick.jpg'}
+            className={s.portrait}
+            id="header-profile-image"
+            alt="Owen Miller, smiling"
+          />
         </div>
+        {/*<video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
+                        <source src="/videos/Owen_highlights.mp4" type="video/mp4"/>
+                        Your browser must not support the video tag.
+                    </video>*/}
       </header>
 
       <main className={`relative z-10 ${s.main}`}>
         <section id="about" aria-labelledby="about-heading" className={s.section}>
           <h2 id="about-heading" className={s.sectionHeading}>About</h2>
-          <div className={`${s.card} ${s.about}`}>
-            <div className={s.portraitFrame}>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={'images/Owen_in_Brunswick.jpg'}
-                className={s.portrait}
-                id="header-profile-image"
-                alt="Owen Miller, smiling"
-              />
-            </div>
-            {/*<video width="100%" autoPlay loop muted playsInline className="rounded" style={{maxWidth: '458px'}}>
-                            <source src="/videos/Owen_highlights.mp4" type="video/mp4"/>
-                            Your browser must not support the video tag.
-                        </video>*/}
+          <div className={s.card}>
             <div className={s.prose}>
               <p className={s.lead}>
                 G&apos;day, I&apos;m Owen, a software engineer in Melbourne, Australia, and an electoral candidate
