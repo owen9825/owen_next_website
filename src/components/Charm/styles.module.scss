@@ -21,6 +21,7 @@
   background-position: 50% 50%, 50% 50%;
 
   filter: blur(10px) invert(100%);
+  opacity: 0.4; // faint, so it tints rather than dominates
 
   -webkit-mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);
   mask-image: radial-gradient(ellipse at 100% 0%, black 40%, transparent 70%);

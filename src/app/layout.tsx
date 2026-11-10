@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bodoni_Moda, Manrope, Shippori_Mincho } from "next/font/google";
+import { Bodoni_Moda, Manrope } from "next/font/google";
 import "./globals.css";
 
 // Display: a high-contrast italic serif, like the English copy on 80s Japanese ads
@@ -18,18 +18,9 @@ const manrope = Manrope({
   display: "swap",
 });
 
-// Japanese: an elegant mincho serif for オウェン
-const shipporiMincho = Shippori_Mincho({
-  variable: "--font-shippori-mincho",
-  subsets: ["latin"],
-  weight: ["400", "500"],
-  display: "swap",
-  preload: false,
-});
-
 export const metadata: Metadata = {
-  title: "Owen Miller ⚗🇦🇺✨",
-  description: "Owen Miller (オウェン): software engineer in Melbourne, founder of the Non-Human Party, and co-host of the My First Party podcast.",
+  title: "Owen Miller 🦘💽🔮",
+  description: "Owen Miller: software engineer in Melbourne, founder of the Non-Human Party, and co-host of the My First Party podcast.",
   metadataBase: new URL("https://owen.engineer"),
 };
 
@@ -39,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${bodoniModa.variable} ${manrope.variable} ${shipporiMincho.variable}`}>
+    <html lang="en" className={`${bodoniModa.variable} ${manrope.variable}`}>
       <body className="antialiased">
         {children}
       </body>

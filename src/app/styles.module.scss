@@ -1,5 +1,7 @@
 $content-width: 72rem;
 
+$card-padding: clamp(1.4rem, 3vw, 2rem);
+
 %glass {
   background: var(--glass);
   border: 1px solid var(--glass-edge);
@@ -8,85 +10,6 @@ $content-width: 72rem;
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
     0 24px 60px -30px rgba(70, 60, 200, 0.35);
-}
-
-/* ---------- Navigation ---------- */
-
-.nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  max-width: $content-width;
-  margin: 0 auto;
-  padding: 1.5rem var(--horizontal-page-margin);
-  font-size: 0.92rem;
-}
-
-.brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-  color: var(--ink);
-  text-decoration: none;
-
-  &:hover,
-  &:focus-visible {
-    color: var(--ink);
-  }
-}
-
-.brandMark {
-  display: inline-grid;
-  place-items: center;
-  width: 2.1rem;
-  height: 2.1rem;
-  border-radius: 10px;
-  font-size: 0.8rem;
-  color: white;
-  background: linear-gradient(135deg, #ffb07a, #ff8fc8 45%, #6e7bff);
-  box-shadow: 0 6px 16px -6px rgba(110, 123, 255, 0.7);
-}
-
-.navLinks {
-  display: none;
-  gap: 2.2rem;
-
-  @media (min-width: 820px) {
-    display: flex;
-  }
-
-  a {
-    position: relative;
-    color: var(--ink-soft);
-    text-decoration: none;
-    padding-block: 0.4rem;
-
-    &::after {
-      content: "";
-      position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: 2px;
-      border-radius: 2px;
-      background: var(--accent-gradient);
-      transform: scaleX(0);
-      transform-origin: left;
-      transition: transform 0.3s ease;
-    }
-
-    &:hover,
-    &:focus-visible {
-      color: var(--ink);
-
-      &::after {
-        transform: scaleX(1);
-      }
-    }
-  }
 }
 
 /* ---------- Buttons ---------- */
@@ -141,72 +64,72 @@ $content-width: 72rem;
 
 /* ---------- Hero ---------- */
 
+// The signature and the polaroids always share the top row; the intro text
+// sits below them on narrow screens and beneath the signature on wide ones
 .hero {
   display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "title photo"
+    "copy copy";
   align-items: center;
-  gap: 2rem;
+  column-gap: clamp(1rem, 4vw, 2rem);
   max-width: $content-width;
   margin: 0 auto;
   padding: clamp(2rem, 6vw, 5rem) var(--horizontal-page-margin) clamp(3rem, 8vw, 6rem);
 
   @media (min-width: 960px) {
-    grid-template-columns: 1.25fr 1fr;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-areas:
+      "title photo"
+      "copy photo";
   }
-}
-
-.titleBlock {
-  min-width: 0;
 }
 
 // The name and the clouds drifting behind it
 .titleStage {
+  grid-area: title;
   position: relative;
   isolation: isolate;
-  display: inline-block;
+  min-width: 0;
+
+  @media (min-width: 960px) {
+    align-self: end;
+  }
+}
+
+.heroCopy {
+  grid-area: copy;
+  align-self: start;
 }
 
 // Very large name, each letter cast in glass: deep navy through violet to pink,
 // with a bright reflection across the middle and a soft neon bloom
 .title {
-  font-family: var(--font-bodoni-moda), serif;
-  font-style: italic;
-  font-weight: 500;
-  font-size: clamp(4.5rem, 13vw, 10.5rem);
-  line-height: 0.95;
-  letter-spacing: -0.01em;
-  margin-left: -0.04em;
+  margin: 0;
+  line-height: 0;
   filter:
     drop-shadow(0 0 14px rgba(255, 143, 200, 0.45))
     drop-shadow(0 18px 30px rgba(79, 91, 255, 0.25));
-
-  span {
-    background: linear-gradient(
-      180deg,
-      #26237a 0%,
-      #4b46d6 36%,
-      #8f7cf0 47%,
-      #b9a4ff 50%,
-      #a066e0 56%,
-      #ff8fc8 100%
-    );
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-    padding-inline: 0.03em; // keep italic overhangs inside the clipped background
-  }
 }
 
-.japanese {
-  margin-top: 1rem;
-  font-family: var(--font-shippori-mincho), serif;
-  font-weight: 400;
-  font-size: clamp(1.2rem, 2.4vw, 1.7rem);
-  letter-spacing: 0.4em;
-  color: var(--ink-soft);
-}
-
-.bracket {
-  opacity: 0.7;
+// Handwritten signature: the SVG's shape masks the glass gradient,
+// so the ink takes on the navy → violet → pink colouring
+.signature {
+  display: block;
+  width: min(100%, 30rem);
+  aspect-ratio: 942 / 812;
+  background: linear-gradient(
+    180deg,
+    #26237a 0%,
+    #4b46d6 36%,
+    #8f7cf0 47%,
+    #b9a4ff 50%,
+    #a066e0 56%,
+    #ff8fc8 100%
+  );
+  -webkit-mask: url('/images/owen-handwritten-bold.svg') center / contain no-repeat;
+  mask: url('/images/owen-handwritten-bold.svg') center / contain no-repeat;
 }
 
 .heroText {
@@ -222,60 +145,6 @@ $content-width: 72rem;
   flex-wrap: wrap;
   gap: 0.9rem;
   margin-top: 2rem;
-}
-
-@keyframes drift-float {
-  0%,
-  100% {
-    translate: 0 0;
-  }
-  50% {
-    translate: 0 -10px;
-  }
-}
-
-/* ---------- Name fading like a breeze of ether ----------
-   Each character softly fades out and back in, with no movement. The delays are
-   staggered along the name, so a gentle wave of transparency flows through it.
-   Only opacity/filter are animated, leaving the inline rotate intact. */
-
-$ether-duration: 8s;
-$ether-step: 0.22s;
-
-@keyframes ether {
-  0%,
-  100% {
-    opacity: 1;
-    filter: blur(0);
-  }
-  50% {
-    opacity: 0.3;
-    filter: blur(1.5px);
-  }
-}
-
-.breeze {
-  h1 span,
-  h2 span {
-    animation: ether $ether-duration ease-in-out infinite both;
-  }
-
-  // h1: words are the direct <div> children; characters are <span>s within each.
-  // The second word continues the wave from where the first left off.
-  @for $w from 1 through 4 {
-    @for $c from 1 through 14 {
-      h1 > div:nth-child(#{$w}) span:nth-child(#{$c}) {
-        animation-delay: ($w - 1) * 5 * $ether-step + ($c - 1) * $ether-step;
-      }
-    }
-  }
-
-  // h2: the subtitle carries the same wave a moment later
-  @for $c from 1 through 8 {
-    h2 > span:nth-child(#{$c}) {
-      animation-delay: 1.5s + ($c - 1) * $ether-step;
-    }
-  }
 }
 
 /* ---------- Sections ---------- */
@@ -319,12 +188,26 @@ $ether-step: 0.22s;
 .card {
   @extend %glass;
   border-radius: 24px;
-  padding: clamp(1.4rem, 3vw, 2rem);
+  padding: $card-padding;
   line-height: 1.75;
   color: var(--ink-soft);
 
   p + p {
     margin-top: 0.9rem;
+  }
+
+  ul {
+    margin-top: 0.9rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+
+  li::marker {
+    color: var(--blue);
   }
 
   h3 {
@@ -335,15 +218,39 @@ $ether-step: 0.22s;
   }
 }
 
+// Card with an image filling its right edge, top to bottom. The image is
+// absolutely positioned so the text sets the card height; object-fit
+// crops the image's left and right sides as needed.
+.mediaCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.mediaCardBody {
+  padding: $card-padding;
+}
+
+.mediaCardImage {
+  position: relative;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
 .cardGrid {
   display: grid;
   gap: 1.25rem;
 
-  @media (min-width: 900px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   .card {
+    min-height: 250px;
     scroll-margin-top: 2rem;
     transition: translate 0.3s, box-shadow 0.3s;
 
@@ -356,30 +263,86 @@ $ether-step: 0.22s;
   }
 }
 
-// Portrait: recoloured pastel purple, with an orange-to-blue gradient laid across it
-.portraitFrame {
-  position: relative;
+// The polaroids share one grid cell, so the back print sits behind the portrait
+.polaroidStack {
+  grid-area: photo;
+  display: grid;
+  justify-items: center;
+  align-items: center;
   width: 100%;
-  max-width: 26rem;
+  max-width: 28rem;
   justify-self: center;
-  aspect-ratio: 1;
-  border-radius: 32px;
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow:
-    0 0 0 8px rgba(255, 255, 255, 0.35),
-    0 40px 80px -30px rgba(70, 60, 200, 0.55);
-  animation: drift-float 12s ease-in-out infinite;
 
+  > * {
+    grid-area: 1 / 1;
+  }
+}
+
+// Portrait as a polaroid: a white print with a deeper bottom border,
+// tilted as if tossed on a table, straightening when hovered
+.polaroid {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 24rem;
+  justify-self: center;
+  margin: 0;
+  padding: 4% 4% 18%;
+  background: #fdfcf8;
+  border-radius: 2px;
+  rotate: 5deg;
+  box-shadow:
+    0 1px 2px rgba(40, 30, 80, 0.15),
+    0 12px 24px -8px rgba(40, 30, 80, 0.3),
+    0 40px 80px -30px rgba(70, 60, 200, 0.55);
+  transition: rotate 0.4s ease, scale 0.4s ease;
+
+  &:hover {
+    rotate: 1deg;
+    scale: 1.02;
+  }
+
+  // An orange-to-white-to-pink wash over the whole print, border and photo alike.
+  // Multiply rather than overlay, since overlay leaves pure white untouched.
   &::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, #ff6a1f 0%, #ff9a4d 28%, #ff8fc8 58%, #4f5bff 100%);
-    mix-blend-mode: overlay;
-    opacity: 0.9;
+    background: linear-gradient(180deg, #ff8a3d 0%, #ffffff 50%, #ff8fc8 100%);
+    mix-blend-mode: multiply;
+    opacity: 0.35;
+    border-radius: inherit;
     pointer-events: none;
   }
+}
+
+// A second print peeking out from behind the portrait, tilted the other way
+.polaroidBack {
+  z-index: 0;
+  max-width: 20rem;
+  width: 75%;
+  margin: -42% 0 0 -25%;
+
+  @media (min-width: 960px) {
+    margin: -50% 0 0 -55%;
+  }
+  rotate: -9deg;
+
+  &:hover {
+    rotate: -6deg;
+  }
+}
+
+// The photo
+.photo {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.photoLandscape {
+  aspect-ratio: 800 / 632;
 }
 
 .portrait {
@@ -387,11 +350,26 @@ $ether-step: 0.22s;
   height: 100%;
   object-fit: cover;
   object-position: 50% 25%;
-  filter: url(#pastel-purple) contrast(1.05);
 }
 
 .prose {
   font-size: 1.05rem;
+
+  h3 {
+    margin-top: 3px;
+    color: var(--ink-soft);
+  }
+}
+
+.techIcons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+
+  a {
+    display: flex;
+  }
 }
 
 .lead {
@@ -410,11 +388,10 @@ $ether-step: 0.22s;
   @extend %glass;
   display: inline-flex;
   align-items: center;
-  gap: 0.55rem;
-  padding: 0.6rem 1.15rem;
-  border-radius: 999px;
-  font-size: 0.92rem;
-  font-weight: 500;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
   color: var(--ink);
   text-decoration: none;
   transition: background 0.3s, translate 0.3s;
