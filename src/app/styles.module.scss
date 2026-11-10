@@ -14,31 +14,33 @@ $card-padding: clamp(1.4rem, 3vw, 2rem);
 
 /* ---------- Buttons ---------- */
 
+// Purple in the top-left fading to pastel purple in the bottom-right.
+// The pastel end is kept deep enough, with a soft shadow, for white text to read.
 .buttonPrimary {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 0.75rem 1.5rem;
   border: none;
-  border-radius: 999px;
+  border-radius: 10px;
   font: inherit;
   font-weight: 600;
   font-size: 0.92rem;
   color: white;
-  text-shadow: 0 1px 2px rgba(90, 50, 140, 0.35);
+  text-shadow: 0 1px 2px rgba(60, 30, 120, 0.4);
   text-decoration: none;
   cursor: pointer;
-  background: linear-gradient(90deg, #ffb07a 0%, #ff8fc8 45%, #6e7bff 100%);
-  background-size: 140% 100%;
-  box-shadow: 0 10px 24px -10px rgba(110, 123, 255, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.45);
-  transition: background-position 0.4s ease, box-shadow 0.3s, translate 0.3s;
+  background: linear-gradient(135deg, #b94bd8 0%, #ba8bfa 100%);
+  box-shadow: 0 10px 24px -12px rgba(90, 60, 200, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: filter 0.15s, box-shadow 0.15s, translate 0.15s;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); // ease-out: responds at once
 
   &:hover,
   &:focus-visible {
     color: white;
-    background-position: 100% 0;
+    filter: brightness(1.06);
     translate: 0 -1px;
-    box-shadow: 0 14px 30px -10px rgba(110, 123, 255, 0.9), inset 0 1px 0 rgba(255, 255, 255, 0.45);
+    box-shadow: 0 14px 28px -12px rgba(90, 60, 200, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 }
 
@@ -47,7 +49,7 @@ $card-padding: clamp(1.4rem, 3vw, 2rem);
   display: inline-flex;
   align-items: center;
   padding: 0.75rem 1.5rem;
-  border-radius: 999px;
+  border-radius: 10px;
   font-weight: 600;
   font-size: 0.92rem;
   color: var(--ink);

@@ -2,7 +2,12 @@ import Footer from "@/components/Footer";
 import Ether from "@/components/Ether";
 import SphereClouds from "@/components/SphereClouds";
 import Charm from "@/components/Charm";
+import Script from "next/script";
 import s from './styles.module.scss';
+
+// The contact form posts to Kwes (kwes.io); these are the same IDs the old Jekyll site used
+const KWES_FORM_ID = "l6IzI5rwtjzTd6GFvc9F";
+const RECAPTCHA_SITE_KEY = "6LfHjr0bAAAAAGZE_F4hiMIo3nik5dTeg7frac80";
 // https://dev.to/xandemon/developer-icons-an-awesome-open-source-library-for-free-tech-logos-299p
 import { ClaudeAI, DeepSeek, Gemini, Python, Django, Java, Go, JavaScript, React as ReactIcon, Solidity, Docker, MySQL, PostgreSQL, Redis, Elastic, Cloudflare, AWS, Ubuntu, GitHubDark } from "developer-icons";
 
@@ -208,25 +213,40 @@ export default function Home() {
         <section id="contact" aria-labelledby="contact-heading" className={s.section}>
           <h2 id="contact-heading" className={s.sectionHeading}>Contact me</h2>
           <div className={s.card}>
-            {/* TODO: connect to a form handler (the old site posted to kwes.io) */}
-            <form className={s.form}>
+            {/* Submissions to Kwes are protected by reCAPTCHA v3. Kwes reads its validation
+            rules from the non-standard `rules` attribute. */}
+            <form
+              className={`kwes-form ${s.form}`}
+              action={`https://kwes.io/api/foreign/forms/${KWES_FORM_ID}`}
+              method="post"
+              has-recaptcha-v3=""
+              recaptcha-site-key={RECAPTCHA_SITE_KEY}
+            >
+              <input type="hidden" name="redirect_to" value="https://media.giphy.com/media/xT5LMrH18OTqQ7QDBu/giphy.gif"/>
               <label>
                 <span>Name</span>
-                <input type="text" name="name" autoComplete="name" placeholder="Your name" required/>
+                <input type="text" name="name" autoComplete="name" placeholder="Your name" required {...{rules: "required"}}/>
               </label>
               <label>
                 <span>Email address</span>
                 <input type="email" name="email" autoComplete="email" placeholder="hello@example.com"/>
               </label>
+              <label>
+                <span>Phone</span>
+                <input type="tel" name="phone" autoComplete="tel" placeholder="+61 4xx xxx xxx"/>
+              </label>
               <label className={s.fullWidth}>
                 <span>Message</span>
-                <textarea name="message" rows={5} required placeholder="Hello Owen, I need to tell you something"/>
+                <textarea name="message" rows={5} required {...{rules: "required"}} placeholder="Hello Owen, I need to tell you something"/>
               </label>
               <p className={s.fullWidth} lang="fr">
                 <small>On peut envoyer un message en français si c&apos;est plus facile.</small>
               </p>
               <button type="submit" className={`${s.buttonPrimary} ${s.submit}`}>Send message</button>
             </form>
+            {/* Load after hydration, since Kwes adds its own error and success messages to the form */}
+            <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="lazyOnload"/>
+            <Script src="https://kwes.io/v2/kwes-script.js" strategy="lazyOnload"/>
           </div>
         </section>
       </main>
