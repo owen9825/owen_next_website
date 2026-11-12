@@ -1,0 +1,78 @@
+.sky {
+  // Hidden for now; remove this line to bring the clouds back
+  display: none;
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+}
+
+%glossy {
+  background:
+    radial-gradient(circle at 34% 28%, #ffffff 0 10%, rgba(255, 255, 255, 0.75) 26%, rgba(255, 255, 255, 0) 58%),
+    radial-gradient(circle at 72% 82%, rgba(255, 170, 215, 0.45), transparent 55%),
+    radial-gradient(circle at 22% 88%, rgba(150, 165, 255, 0.45), transparent 55%),
+    linear-gradient(160deg, #fdfbff, #e4ddff);
+  box-shadow:
+    inset -10px -14px 26px rgba(130, 120, 240, 0.22),
+    inset 8px 8px 18px rgba(255, 255, 255, 0.9);
+}
+
+.cloud {
+  position: absolute;
+  aspect-ratio: 2.2;
+  filter: drop-shadow(0 22px 28px rgba(110, 100, 230, 0.16));
+  opacity: 0.85;
+  animation: bob ease-in-out infinite alternate;
+}
+
+.puff {
+  @extend %glossy;
+  position: absolute;
+  aspect-ratio: 1;
+  border-radius: 50%;
+}
+
+.base {
+  @extend %glossy;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 34%;
+  border-radius: 999px;
+}
+
+// Above and behind "Owen", to the right
+.cloudA {
+  width: clamp(120px, 22vw, 300px);
+  top: -28%;
+  left: 46%;
+}
+
+// Behind "Miller", lower left
+.cloudB {
+  width: clamp(140px, 27vw, 370px);
+  top: 36%;
+  left: -12%;
+}
+
+// A small one tucked behind the "O"
+.cloudC {
+  width: clamp(70px, 12vw, 170px);
+  top: -14%;
+  left: -9%;
+  opacity: 0.75;
+}
+
+@keyframes bob {
+  0% {
+    translate: 0 0;
+  }
+  50% {
+    translate: 8px -10px;
+  }
+  100% {
+    translate: -6px 4px;
+  }
+}

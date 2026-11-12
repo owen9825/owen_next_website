@@ -1,133 +1,466 @@
-.pageMargin {
-  //margin-left: 7rem;
-  margin-inline: var(--horizontal-page-margin);
-  //margin-right: 5rem;
+$content-width: 72rem;
+
+$card-padding: clamp(1.4rem, 3vw, 2rem);
+
+%glass {
+  background: var(--glass);
+  border: 1px solid var(--glass-edge);
+  -webkit-backdrop-filter: blur(22px) saturate(150%);
+  backdrop-filter: blur(22px) saturate(150%);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    0 24px 60px -30px rgba(70, 60, 200, 0.35);
 }
 
-.xsPageMarginLeft {
-  margin-left: var(--horizontal-page-margin);
+/* ---------- Buttons ---------- */
 
-  @media(min-width: 640px) {
-    margin-left: 0;
+// Purple in the top-left fading to pastel purple in the bottom-right.
+// The pastel end is kept deep enough, with a soft shadow, for white text to read.
+.buttonPrimary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 10px;
+  font: inherit;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: white;
+  text-shadow: 0 1px 2px rgba(60, 30, 120, 0.4);
+  text-decoration: none;
+  cursor: pointer;
+  background: linear-gradient(135deg, #b94bd8 0%, #ba8bfa 100%);
+  box-shadow: 0 10px 24px -12px rgba(90, 60, 200, 0.75), inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transition: filter 0.15s, box-shadow 0.15s, translate 0.15s;
+  transition-timing-function: cubic-bezier(0.2, 0.8, 0.3, 1); // ease-out: responds at once
+
+  &:hover,
+  &:focus-visible {
+    color: white;
+    filter: brightness(1.06);
+    translate: 0 -1px;
+    box-shadow: 0 14px 28px -12px rgba(90, 60, 200, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   }
 }
 
-.pageMarginLeft {
-  margin-left: var(--horizontal-page-margin);
-}
+/* ---------- Hero ---------- */
 
-.pageMarginRight {
-  margin-right: var(--horizontal-page-margin);
-}
+// The signature and the polaroids always share the top row; the intro text
+// sits below them on narrow screens and beneath the signature on wide ones
+.hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-areas:
+    "title photo"
+    "copy copy";
+  align-items: center;
+  column-gap: clamp(1rem, 4vw, 2rem);
+  max-width: $content-width;
+  margin: 0 auto;
+  padding: clamp(2rem, 6vw, 5rem) var(--horizontal-page-margin) clamp(2rem, 5.333vw, 4rem);
 
-.bannerTextXl {
-  // Ensure the banner fits nicely
-  font-size: calc(max(
-          min(12vw, 8rem),
-          50px)
-  );
-  line-height: 110%;
-}
-
-.bannerTextL {
-  // Ensure the banner fits nicely
-  font-size: calc(max(
-          min(7vw, 3.5rem),
-          25px)
-  );
-  line-height: 110%;
-}
-
-.borderPunctuation {
-  -webkit-text-stroke: 0.11rem #1e40af;
-}
-
-.borderText {
-  -webkit-text-stroke: 0.01rem #1e40af;
-}
-
-.augmentedSection {
-  section {
-    min-height: 5rem;
-    padding-left: 5rem;
-    -aug-tr: 25px;
-    --aug-bl: 57px;
-    --aug-br: 25px;
-    --aug-br-inset2: 40%;
-    --aug-border-all: 10px;
-    --aug-border-bg: linear-gradient(
-                    to bottom,
-                    #e38bf8,
-                    #9049a4
-    );
-    --aug-inlay-all: 10px;
-    --aug-inlay-bg: #fbe806;
+  @media (min-width: 960px) {
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    grid-template-areas:
+      "title photo"
+      "copy photo";
   }
 }
 
-.augmentedVideo {
-  -aug-tr: 25px;
-  --aug-bl: 57px;
-  --aug-br: 25px;
-  --aug-br-inset2: 40%;
-  --aug-border-all: 10px;
-  --aug-border-bg: linear-gradient(
-                  to bottom,
-                  #e38bf8,
-                  #9049a4
-  );
-  --aug-inlay-all: 10px;
-  --aug-inlay-bg: #fbe806;
-}
-
-.neonPinkBorder {
-  box-sizing: content-box;   // Padding and border are added to the width and height of the element
-  //display: inline-block;  // Shrink-wrap
+// The name and the clouds drifting behind it
+.titleStage {
+  grid-area: title;
   position: relative;
+  isolation: isolate;
+  min-width: 0;
 
-  &:after {
-    content: '';
+  @media (min-width: 960px) {
+    align-self: end;
+  }
+}
+
+.heroCopy {
+  grid-area: copy;
+  align-self: start;
+}
+
+// Very large name, each letter cast in glass: deep navy through violet to pink,
+// with a bright reflection across the middle and a soft neon bloom
+.title {
+  margin: 0;
+  line-height: 0;
+  filter:
+    drop-shadow(0 0 14px rgba(255, 143, 200, 0.45))
+    drop-shadow(0 18px 30px rgba(79, 91, 255, 0.25));
+}
+
+// Handwritten signature: the SVG's shape masks the glass gradient,
+// so the ink takes on the navy → violet → pink colouring
+.signature {
+  display: block;
+  width: min(100%, 30rem);
+  aspect-ratio: 942 / 812;
+  background: linear-gradient(
+    180deg,
+    #26237a 0%,
+    #4b46d6 36%,
+    #8f7cf0 47%,
+    #b9a4ff 50%,
+    #a066e0 56%,
+    #ff8fc8 100%
+  );
+  -webkit-mask: url('/images/owen-handwritten-bold.svg') center / contain no-repeat;
+  mask: url('/images/owen-handwritten-bold.svg') center / contain no-repeat;
+}
+
+.heroText {
+  max-width: 32rem;
+  margin-top: 1.5rem;
+  font-size: 1.1rem;
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.heroActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2rem;
+}
+
+/* ---------- Sections ---------- */
+
+.main {
+  max-width: $content-width;
+  margin: 0 auto;
+  padding-inline: var(--horizontal-page-margin);
+  display: flex;
+  flex-direction: column;
+  gap: clamp(3rem, 7vw, 5rem);
+}
+
+.section {
+  scroll-margin-top: 2rem;
+}
+
+// Section headings: underlined pink on the left, fading to dark blue on the right
+.sectionHeading {
+  display: inline-block;
+  position: relative;
+  margin-bottom: 1.75rem;
+  padding-bottom: 0.55rem;
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+
+  &::after {
+    content: "";
     position: absolute;
     left: 0;
+    right: 0;
     bottom: 0;
-    width: 100%; /* Full width of the parent */
-    height: 100%; /* Same height as your border */
-    background-color: transparent;
-    box-shadow:
-            // x, y, blur-radius, color
-            0 0 5px var(--neon-pink);
-    animation: neon-pink-glow 5s ease-in-out infinite alternate;
-    z-index: 10;
+    height: 3px;
+    border-radius: 3px;
+    background: var(--accent-gradient);
   }
 }
 
-.neon-pink-glow {
+.card {
+  @extend %glass;
+  border-radius: 24px;
+  padding: $card-padding;
+  line-height: 1.75;
+  color: var(--ink-soft);
+
+  p + p {
+    margin-top: 0.9rem;
+  }
+
+  ul {
+    margin-top: 0.9rem;
+    padding-left: 1.25rem;
+    list-style: disc;
+  }
+
+  li + li {
+    margin-top: 0.5rem;
+  }
+
+  li::marker {
+    color: var(--blue);
+  }
+
+  h3 {
+    margin-bottom: 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+}
+
+// Card with an image filling its right edge, top to bottom. The image is
+// absolutely positioned so the text sets the card height; object-fit
+// crops the image's left and right sides as needed.
+.mediaCard {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 40%;
+  padding: 0;
+  overflow: hidden;
+}
+
+.mediaCardBody {
+  padding: $card-padding;
+}
+
+.mediaCardImage {
+  position: relative;
+
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.cardGrid {
+  display: grid;
+  gap: 1.25rem;
+
+  .card {
+    min-height: 250px;
+    scroll-margin-top: 2rem;
+    transition: translate 0.3s, box-shadow 0.3s;
+
+    &:hover {
+      translate: 0 -3px;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.9),
+        0 30px 60px -28px rgba(70, 60, 200, 0.45);
+    }
+  }
+}
+
+// The polaroids share one grid cell, so the back print sits behind the portrait
+.polaroidStack {
+  grid-area: photo;
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  width: 100%;
+  max-width: 28rem;
+  justify-self: center;
+
+  > * {
+    grid-area: 1 / 1;
+  }
+}
+
+// Portrait as a polaroid: a white print with a deeper bottom border,
+// tilted as if tossed on a table, straightening when hovered
+.polaroid {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 24rem;
+  justify-self: center;
+  margin: 0;
+  padding: 4% 4% 18%;
+  background: #fdfcf8;
+  border-radius: 2px;
+  rotate: 5deg;
+  box-shadow:
+    0 1px 2px rgba(40, 30, 80, 0.15),
+    0 12px 24px -8px rgba(40, 30, 80, 0.3),
+    0 40px 80px -30px rgba(70, 60, 200, 0.55);
+  cursor: zoom-in;
+  transition: rotate 0.4s ease, scale 0.4s ease, translate 0.4s ease;
+
   &:hover {
-      animation: neon-pink-glow 5s ease-in-out infinite alternate;
+    rotate: 1deg;
+    scale: 1.02;
+  }
+
+  // An orange-to-white-to-pink wash over the whole print, border and photo alike.
+  // Multiply rather than overlay, since overlay leaves pure white untouched.
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, #ff8a3d 0%, #ffffff 50%, #ff8fc8 100%);
+    mix-blend-mode: multiply;
+    opacity: 0.35;
+    border-radius: inherit;
+    pointer-events: none;
   }
 }
 
-@keyframes neon-pink-glow {
-  from {
-    box-shadow:
-            0 0 10px #fff,
-            0 0 20px #fff,
-            0 0 30px #fff,
-            0 0 40px #F897E9EA,
-            0 0 70px #F897E9EA,
-            0 0 80px #F897E9EA,
-            0 0 100px #F897E9EA,
-            0 0 150px #F897E9EA;
+// A second print peeking out from behind the portrait, tilted the other way
+.polaroidBack {
+  z-index: 0;
+  max-width: 20rem;
+  width: 75%;
+  margin: -42% 0 0 -25%;
+
+  @media (min-width: 960px) {
+    margin: -50% 0 0 -55%;
   }
-  to {
-    box-shadow:
-            0 0 5px #F897E9EA,
-            0 0 10px #F897E9EA,
-            0 0 15px #fff,
-            0 0 20px #F897E9EA,
-            0 0 35px #F897E9EA,
-            0 0 40px #F897E9EA,
-            0 0 50px #F897E9EA,
-            0 0 75px #F897E9EA;
+  rotate: -9deg;
+
+  &:hover {
+    rotate: -6deg;
   }
+}
+
+// A print that's been clicked: lifted above everything else. Its translate, scale and rotate are set
+// inline, since they depend on where the print sits and the size of the viewport.
+.polaroidExpanded {
+  z-index: 2;
+  cursor: zoom-out;
+}
+
+// The hero and main are both z-10, so raise the hero while a print is enlarged over the content below
+.hero:has(.polaroidExpanded) {
+  z-index: 20;
+}
+
+// The photo
+.photo {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+}
+
+.photoLandscape {
+  aspect-ratio: 800 / 632;
+}
+
+.portrait {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 25%;
+}
+
+.prose {
+  font-size: 1.05rem;
+
+  h3 {
+    margin-top: 3px;
+    color: var(--ink-soft);
+  }
+}
+
+.techIcons {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+
+  a {
+    display: flex;
+  }
+}
+
+.lead {
+  font-size: 1.25rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.link {
+  @extend %glass;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  color: var(--ink);
+  text-decoration: none;
+  transition: background 0.3s, translate 0.3s;
+
+  svg {
+    fill: currentColor;
+    color: #6e5bd8;
+  }
+
+  &:hover,
+  &:focus-visible {
+    color: var(--ink);
+    background: var(--glass-strong);
+    translate: 0 -2px;
+  }
+}
+
+/* ---------- Contact form ---------- */
+
+.form {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.1rem;
+
+  @media (min-width: 600px) {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink);
+  }
+
+  input,
+  textarea {
+    font: inherit;
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--ink);
+    padding: 0.75rem 1rem;
+    border-radius: 14px;
+    border: 1px solid rgba(255, 255, 255, 0.95);
+    background: rgba(255, 255, 255, 0.6);
+    outline: none;
+    transition: box-shadow 0.25s, background 0.25s;
+
+    &::placeholder {
+      color: #9a98bd;
+    }
+
+    &:focus {
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 0 0 3px rgba(143, 155, 255, 0.45);
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+
+  small {
+    font-size: 0.85rem;
+  }
+}
+
+.fullWidth {
+  grid-column: 1 / -1;
+}
+
+.submit {
+  grid-column: 1 / -1;
+  justify-self: end;
 }

@@ -1,0 +1,10 @@
+.footer {
+  position: relative;
+  z-index: 10;
+  max-width: 72rem;
+  margin: 5rem auto 0;
+  padding: 2rem var(--horizontal-page-margin) 2.5rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  border-top: 1px solid rgba(255, 255, 255, 0.8);
+}

@@ -1,5 +1,7 @@
+import s from "./styles.module.scss";
+
 const Footer = () => (
-    <footer>
+    <footer className={s.footer}>
         © Owen Miller {(new Date()).getFullYear()}
     </footer>
 );

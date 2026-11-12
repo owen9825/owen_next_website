@@ -1,0 +1,53 @@
+.ether {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 60% at 0% 0%, rgba(255, 255, 255, 0.95), transparent 60%),
+    linear-gradient(135deg, #f7f4ff 0%, #ece6ff 35%, #e4ddff 60%, #d3d6ff 85%, #bcc4ff 100%);
+}
+
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.75;
+}
+
+.glowBlue {
+  width: 55vmax;
+  height: 55vmax;
+  top: -20vmax;
+  right: -18vmax;
+  background: radial-gradient(circle, #8f9bff, rgba(143, 155, 255, 0) 70%);
+  animation: wander 40s ease-in-out infinite alternate;
+}
+
+.glowPink {
+  width: 45vmax;
+  height: 45vmax;
+  top: 30vh;
+  left: -15vmax;
+  background: radial-gradient(circle, #ffc6e8, rgba(255, 198, 232, 0) 70%);
+  animation: wander 52s ease-in-out infinite alternate-reverse;
+}
+
+.glowLilac {
+  width: 50vmax;
+  height: 50vmax;
+  bottom: -25vmax;
+  right: 5vw;
+  background: radial-gradient(circle, #d2c2ff, rgba(210, 194, 255, 0) 70%);
+  animation: wander 46s ease-in-out infinite alternate;
+}
+
+@keyframes wander {
+  from {
+    translate: 0 0;
+  }
+  to {
+    translate: 6vw 5vh;
+  }
+}
