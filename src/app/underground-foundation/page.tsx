@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Main, Section, MediaCard, Prose, Lead } from "@/components/Page";
+import { Main, Section, HeroImage, Card, Prose, Lead } from "@/components/Page";
 
 // Merged with the defaults in layout.tsx; sets the browser-tab title and search snippet for this page
 export const metadata: Metadata = {
@@ -11,10 +11,9 @@ export const metadata: Metadata = {
 export default function UndergroundFoundation() {
   return (
     <Main>
-      <p><Link href="/">← Back home</Link></p>
-
-      <Section id="foundation" title="Underground Foundation" level={1}>
-        <MediaCard image="/images/wombat.webp" imageAlt="The wombat mascot for the Underground Foundation">
+      <Section id="foundation" title="Underground Foundation" level={1} breadcrumbs={[{ label: "Home", href: "/" }, { label: "Underground Foundation" }]}>
+        <HeroImage src="/images/wombat.webp" alt="The wombat mascot for the Underground Foundation"/>
+        <Card>
           <Prose>
             <Lead>
               The <Link href="https://github.com/Underground-Foundation">Underground Foundation</Link> creates software
@@ -23,16 +22,16 @@ export default function UndergroundFoundation() {
             <p>
               While involved with the <Link href={"https://www.fusionparty.org.au/"}>Fusion Party</Link>, it became
               apparent that political parties were having to reinvent a lot of the same tooling and processes as each
-              other, and make do with core software that was costly and difficult in its own way, even if it was
+              other. The core software powering each party was costly and difficult in its own way, even if it was
               provided by a non-profit.
             </p>
             <p>
-              We were already fans of the open-source community and the
-              <Link href={"https://en.wikipedia.org/wiki/G0v_movement"}>g0v movement</Link>, which is making use of
+              We were already fans of the open-source community and
+              the <Link href={"https://en.wikipedia.org/wiki/G0v_movement"}>g0v movement</Link>, which is making use of
               open-source contributions for the running of government. So it was an obvious decision that in sorting out
-              our CMS (Content-Management System) software, I would lean on open-source projects and make a lot of our
-              own work open-source too. This is how the Underground Foundation and our first project
-              (<Link href={"underground-crm"}>Underground CRM</Link>) were born.
+              the management of our web pages and membership database, I would lean on open-source projects and make a
+              lot of our own work open-source too. This is the spark that created the Underground Foundation and our
+              first project: <Link href={"underground-crm"}>Underground CRM</Link>.
             </p>
 
             <h2>Projects</h2>
@@ -47,9 +46,15 @@ export default function UndergroundFoundation() {
                 <Link href="https://github.com/Underground-Foundation/underground-ballots">underground-ballots</Link>:
                 software for ranking candidates in an electorate and rendering how-to-vote PDFs.
               </li>
+              <li>
+                <Link href="https://github.com/Underground-Foundation/candidate-scraping">candidate-scraping</Link>:
+                software to scrape and parse candidates from Wikipedia or the Victorian Electoral Commission, in a way
+                that is conducive
+                to <Link href="https://github.com/Underground-Foundation/underground-ballots">underground-ballots</Link>.
+              </li>
             </ul>
           </Prose>
-        </MediaCard>
+        </Card>
       </Section>
     </Main>
   );

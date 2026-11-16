@@ -1,4 +1,5 @@
 import type { ReactNode } from "react";
+import Link from "next/link";
 import s from "./styles.module.scss";
 
 /**
@@ -19,6 +20,24 @@ export const Main = ({ children }: Children) => (
   <main className={`relative z-10 ${s.main}`}>{children}</main>
 );
 
+/** One step in a breadcrumb trail; leave out href for the current page */
+export type Crumb = { label: ReactNode; href?: string };
+
+/** A breadcrumb trail, e.g. Home › Underground Foundation › Underground CRM */
+export const Breadcrumbs = ({ crumbs }: { crumbs: Crumb[] }) => (
+  <nav aria-label="Breadcrumb" className={s.breadcrumbs}>
+    <ol>
+      {crumbs.map((crumb, i) => (
+        <li key={i}>
+          {crumb.href
+            ? <Link href={crumb.href}>{crumb.label}</Link>
+            : <span aria-current="page">{crumb.label}</span>}
+        </li>
+      ))}
+    </ol>
+  </nav>
+);
+
 type SectionProps = Children & {
   /** Anchor for links like #about; the heading gets the id `${id}-heading` */
   id: string;
@@ -28,19 +47,22 @@ type SectionProps = Children & {
   label?: string;
   /** 1 for a page's main heading; sections of a page default to 2 */
   level?: 1 | 2;
+  /** A trail shown beneath the heading, ending with the current page */
+  breadcrumbs?: Crumb[];
 };
 
-export const Section = ({ id, title, label, level = 2, children }: SectionProps) => {
+export const Section = ({ id, title, label, level = 2, breadcrumbs, children }: SectionProps) => {
   const Heading = level === 1 ? "h1" : "h2";
   const headingId = `${id}-heading`;
   return (
     <section
       id={id}
-      className={s.section}
+      className={`${s.section} ${level === 1 ? s.pageSection : ""}`}
       aria-labelledby={title ? headingId : undefined}
       aria-label={title ? undefined : label}
     >
       {title && <Heading id={headingId} className={s.sectionHeading}>{title}</Heading>}
+      {breadcrumbs && <Breadcrumbs crumbs={breadcrumbs}/>}
       {children}
     </section>
   );
@@ -82,4 +104,47 @@ export const Prose = ({ children }: Children) => (
 /** An opening paragraph in larger, darker text */
 export const Lead = ({ children }: Children) => (
   <p className={s.lead}>{children}</p>
+);
+
+/** Groups Screenshots on a shaded panel, in a grid; a `wide` screenshot spans the full row */
+export const Screenshots = ({ children }: Children) => (
+  <div className={s.screenshots}>{children}</div>
+);
+
+/** A captioned screenshot that enlarges when clicked; see Screenshot.tsx */
+export { default as Screenshot } from "./Screenshot";
+
+type HeroImageProps = {
+  /** Path under public/, starting with a slash */
+  src: string;
+  alt: string;
+};
+
+/** A full-width banner image, for directly beneath a page's h1 */
+export const HeroImage = ({ src, alt }: HeroImageProps) => (
+  <div className={s.heroImage}>
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src={src} alt={alt}/>
+  </div>
+);
+
+type FramedImageProps = {
+  /** Path under public/, starting with a slash */
+  src: string;
+  alt: string;
+  /** Where clicking the image goes */
+  href: string;
+  /** The image's natural width in pixels; it never grows past this */
+  width: number;
+};
+
+/**
+ * A small linked image, such as a repo header, on a white band spanning the
+ * content width. Suits images with white edges, which blend into the band.
+ */
+export const FramedImage = ({ src, alt, href, width }: FramedImageProps) => (
+  <a href={href} className={s.framedImage}>
+    {/* eslint-disable-next-line @next/next/no-img-element */}
+    <img src={src} alt={alt} style={{ maxWidth: width }}/>
+  </a>
 );
