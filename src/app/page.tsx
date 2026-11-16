@@ -132,14 +132,14 @@ export default function Home() {
             <MediaCard id="underground" image="/images/wombat.webp" imageAlt="The wombat mascot for the Underground Foundation">
               <h3>Underground Foundation</h3>
               <p>
-                I am the founder of the <a href={"https://github.com/Underground-Foundation"}>Underground Foundation</a>,
-                an organisation for enabling underground & grassroots political movements. The current projects are:
+                I am the founder of the <a href={"/underground-foundation"}>Underground Foundation</a>,
+                an organisation for enabling underground & grassroots political movements. The current projects include:
               </p>
               <ul>
-                <li><a href={"https://github.com/Underground-Foundation/underground-crm"}>underground-crm</a>: an
+                <li><a href={"/underground-foundation/underground-crm"}>underground-crm</a>: an
                   application for a membership database, rich-text editing of websites, and bulk email. Very
                   comparable to NationBuilder, but open-source and much lower cost.</li>
-                <li><a href={"https://github.com/Underground-Foundation/underground-crm"}>underground-ballots</a>:
+                <li><a href={"https://github.com/Underground-Foundation/underground-ballots"}>underground-ballots</a>:
                   software for ranking candidates in an electorate and rendering how-to-vote PDFs.
                 </li>
               </ul>
