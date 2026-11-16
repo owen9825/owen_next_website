@@ -146,7 +146,7 @@ export default function UndergroundFoundation() {
               Where Underground CRM is Suitable
             </h2>
             <p>
-              Targeting political organisations has a few impacts on the structure of the application:
+              Targeting political organisations has a few impacts on the design of the application:
             </p>
             <ul>
               <li>
@@ -190,8 +190,8 @@ export default function UndergroundFoundation() {
               </li>
               <li>
                 We don't have a style library − the project has initially been aimed at replacing the Fusion Party's
-                reliance on NationBuilder, so we simply migrated the existing styling into Django. You'll see there
-                are plenty of tools for migrating away from NationBuilder, but if you're getting started on
+                reliance on NationBuilder, so we simply migrated the existing styling into Django. You'll see we've
+                implemented plenty of tools for migrating away from NationBuilder, but if you're getting started on
                 Underground CRM as the first CRM for your organisation, then you'll have to define your own CSS to
                 make the site look respectable.
               </li>
