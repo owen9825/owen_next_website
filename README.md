@@ -1,39 +1,64 @@
 # Owen Next Website
-This project represents my personal site, to be served eventually at https://owen.engineer
+This project represents my personal site, served at https://owen.engineer. It replaces the older Jekyll site in `../owen_website`, and is deployed in a similar way: as static files in an S3 bucket, behind CloudFront.
 
-It is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
-It is based on https://dev.to/malvinjay/building-a-static-blog-with-nextjs-of6. 
+It is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app), based on https://dev.to/malvinjay/building-a-static-blog-with-nextjs-of6.
 
 ## Getting Started
 
-First, run the development server:
+Run the development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) to see the result. Pages live under `src/`, and auto-update as you edit them.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Building
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+[`next.config.ts`](./next.config.ts) sets `output: "export"`, so `next build` produces a fully static site, with no Node server needed:
 
-## Learn More
+* `trailingSlash: true` emits each page as `about/index.html`, so the S3 website endpoint can serve `/about/`.
+* `images: { unoptimized: true }`, since there's no image optimisation server on S3.
+* The build goes to `.next` by default; the deploy script sets `NEXT_DIST_DIR=out`, so a deploy doesn't clobber a running `next dev`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+To check the static output locally:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+NEXT_DIST_DIR=out npm run build
+python3 -m http.server --directory out 8000
+```
 
-## Deploy on Vercel
+## Deploying
 
-The easiest way to deploy a Next.js app might be to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```bash
+npm run deploy               # build, upload to S3, invalidate CloudFront
+npm run deploy -- --dryrun   # show what would be uploaded, change nothing
+```
 
-Check out their [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[`scripts/deploy.sh`](./scripts/deploy.sh):
+1. Builds the static site into `out/`.
+2. Syncs `out/_next` (hashed, immutable assets) to S3 with a one-year cache lifetime.
+3. Syncs everything else with a 5-minute cache lifetime, deleting files that are no longer in the build. Old `_next` assets are kept, since cached pages may still refer to them.
+4. Invalidates the CloudFront cache (`/*`).
+
+It needs the [AWS CLI](https://aws.amazon.com/cli/), with credentials in the `owen` profile of `~/.aws/credentials`. Override the defaults with these environment variables:
+
+| Variable | Default |
+| --- | --- |
+| `AWS_PROFILE` | `owen` |
+| `S3_BUCKET` | `owen-next-website` |
+| `CLOUDFRONT_DISTRIBUTION_ID` | `E27PB7P9TJXBYR` |
+
+### AWS setup
+This is a one-time setup. The site has its own bucket, `owen-next-website`, and the existing CloudFront distribution's origin was revised to point at it, replacing the old site's `owen.engineer` bucket:
+
+* In the S3 console, open the bucket's properties and enable static website hosting, with `index.html` as the index document.
+* Set the bucket policy to allow public reads.
+* For CloudFront's origin, enter the URL of the S3 **website** endpoint (e.g. `<bucket>.s3-website-us-east-1.amazonaws.com`); **don't pick the S3 bucket from the suggested list**, and don't restrict bucket access. Otherwise, visitors would need `/about/index.html` rather than `/about/`.
+* Point the domain's DNS records at the CloudFront distribution.
+
+### After deploying
+* Changes are visible at the S3 website endpoint first, then at https://owen.engineer once the CloudFront invalidation finishes (a minute or two).
+* Check the S3 website for broken links before relying on the live domain.
+* Maybe [ask Google to re-analyse the sitemap](https://search.google.com/search-console/sitemaps?resource_id=sc-domain%3Aowen.engineer).

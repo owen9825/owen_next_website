@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Manrope } from "next/font/google";
+import Ether from "@/components/Ether";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 // Display: a high-contrast italic serif, like the English copy on 80s Japanese ads
@@ -32,7 +34,13 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${bodoniModa.variable} ${manrope.variable}`}>
       <body className="antialiased">
-        {children}
+        {/* Every page shares the backdrop and footer. Since the layout stays mounted
+            when following a <Link>, the backdrop keeps drifting between pages. */}
+        <div className="relative min-h-screen overflow-hidden">
+          <Ether/>
+          {children}
+          <Footer/>
+        </div>
       </body>
     </html>
   );

@@ -1,16 +1,16 @@
-import Footer from "@/components/Footer";
-import Ether from "@/components/Ether";
 import SphereClouds from "@/components/SphereClouds";
 import Charm from "@/components/Charm";
 import Polaroids from "@/components/Polaroids";
 import Script from "next/script";
+import { Main, Section, Card, MediaCard, CardGrid, Prose, Lead } from "@/components/Page";
+import Link from "next/link";
 import s from './styles.module.scss';
 
 // The contact form posts to Kwes (kwes.io); these are the same IDs the old Jekyll site used
 const KWES_FORM_ID = "l6IzI5rwtjzTd6GFvc9F";
 const RECAPTCHA_SITE_KEY = "6LfHjr0bAAAAAGZE_F4hiMIo3nik5dTeg7frac80";
 // https://dev.to/xandemon/developer-icons-an-awesome-open-source-library-for-free-tech-logos-299p
-import { ClaudeAI, DeepSeek, Gemini, Python, Django, FastAPI, Java, Go, JavaScript, React as ReactIcon, Solidity, Docker, MySQL, PostgreSQL, Redis, Elastic, Cloudflare, AWS, GoogleCloud, Linux, Ubuntu, GitHubDark } from "developer-icons";
+import { ClaudeAI, DeepSeek, Gemini, Python, Django, FastAPI, Java, Go, JavaScript, TypeScript, React as ReactIcon, NodeJs, NextJs, Solidity, Docker, MySQL, PostgreSQL, Redis, Elastic, Cloudflare, AWS, GoogleCloud, Linux, Ubuntu, GitHubDark } from "developer-icons";
 
 const socials = [
   { name: "GitHub", icon: "github", url: "https://www.github.com/owen9825" },
@@ -32,7 +32,10 @@ const technologies = [
   { name: "Go", Icon: Go, url: "https://go.dev" },
   { name: "Solidity", Icon: Solidity, url: "https://soliditylang.org" },
   { name: "JavaScript", Icon: JavaScript, url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
+  { name: "TypeScript", Icon: TypeScript, url: "https://www.typescriptlang.org" },
   { name: "React", Icon: ReactIcon, url: "https://react.dev" },
+  { name: "Node.js", Icon: NodeJs, url: "https://nodejs.org" },
+  { name: "Next.js", Icon: NextJs, url: "https://nextjs.org" },
   { name: "Docker", Icon: Docker, url: "https://www.docker.com" },
   { name: "MySQL", Icon: MySQL, url: "https://www.mysql.com" },
   { name: "PostgreSQL", Icon: PostgreSQL, url: "https://www.postgresql.org" },
@@ -48,8 +51,7 @@ const technologies = [
 
 export default function Home() {
   return (
-    <div className="relative min-h-screen overflow-hidden">
-      <Ether/>
+    <>
       <Charm/>
 
       <header className={`relative z-10 ${s.hero}`}>
@@ -80,8 +82,8 @@ export default function Home() {
                     </video>*/}
       </header>
 
-      <main className={`relative z-10 ${s.main}`}>
-        <section id="links" aria-labelledby="links-heading" className={s.section}>
+      <Main>
+        <Section id="links" label="Links">
           <ul className={s.links}>
             {socials.map((social) => (
               <li key={social.name}>
@@ -93,14 +95,13 @@ export default function Home() {
               </li>
             ))}
           </ul>
-        </section>
+        </Section>
 
-        <section id="about" aria-labelledby="about-heading" className={s.section}>
-          <h2 id="about-heading" className={s.sectionHeading}>About</h2>
-          <div className={s.card}>
-            <div className={s.prose}>
-              <p className={s.lead}>
-                G&apos;day, I&apos;m Owen, a software engineer in <a title={"Melbourne"} href="https://www.timeout.com/news/this-is-officially-the-worlds-best-city-in-2026-according-to-time-out-031126">the world's best city</a>.</p>
+        <Section id="about" title="About">
+          <Card>
+            <Prose>
+              <Lead>
+                G&apos;day, I&apos;m Owen, a software engineer in <a title={"Melbourne"} href="https://www.timeout.com/news/this-is-officially-the-worlds-best-city-in-2026-according-to-time-out-031126">the world's best city</a>.</Lead>
               <p>My software experience
                 has covered back-end, front-end, blockchain smart contracts and dev-ops.
               </p>
@@ -122,97 +123,72 @@ export default function Home() {
                   </a>
                 ))}
               </p>
-            </div>
-          </div>
-        </section>
+            </Prose>
+          </Card>
+        </Section>
 
-        <section aria-labelledby="work-heading" className={s.section}>
-          <h2 id="work-heading" className={s.sectionHeading}>More to Explore</h2>
-          <div className={s.cardGrid}>
-            <article id="underground" className={`${s.card} ${s.mediaCard}`}>
-              <div className={s.mediaCardBody}>
-                <h3>Underground Foundation</h3>
-                <p>
-                  I am the founder of the <a href={"https://github.com/Underground-Foundation"}>Underground Foundation</a>,
-                  an organisation for enabling underground & grassroots political movements. The current projects are:
-                </p>
-                <ul>
-                  <li><a href={"https://github.com/Underground-Foundation/underground-crm"}>underground-crm</a>: an
-                    application for a membership database, rich-text editing of websites, and bulk email. Very
-                    comparable to NationBuilder, but open-source and much lower cost.</li>
-                  <li><a href={"https://github.com/Underground-Foundation/underground-crm"}>underground-ballots</a>:
-                    software for ranking candidates in an electorate and rendering how-to-vote PDFs.
-                  </li>
-                </ul>
-              </div>
-              <div className={s.mediaCardImage}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={'images/wombat.webp'} alt="The wombat mascot for the Underground Foundation"/>
-              </div>
-            </article>
+        <Section id="explore" title="More to Explore">
+          <CardGrid>
+            <MediaCard id="underground" image="/images/wombat.webp" imageAlt="The wombat mascot for the Underground Foundation">
+              <h3>Underground Foundation</h3>
+              <p>
+                I am the founder of the <a href={"https://github.com/Underground-Foundation"}>Underground Foundation</a>,
+                an organisation for enabling underground & grassroots political movements. The current projects are:
+              </p>
+              <ul>
+                <li><a href={"https://github.com/Underground-Foundation/underground-crm"}>underground-crm</a>: an
+                  application for a membership database, rich-text editing of websites, and bulk email. Very
+                  comparable to NationBuilder, but open-source and much lower cost.</li>
+                <li><a href={"https://github.com/Underground-Foundation/underground-crm"}>underground-ballots</a>:
+                  software for ranking candidates in an electorate and rendering how-to-vote PDFs.
+                </li>
+              </ul>
+              <p><Link href="/underground-foundation/">Read more about the foundation →</Link></p>
+            </MediaCard>
 
-            <article id="podcast" className={`${s.card} ${s.mediaCard}`}>
-              <div className={s.mediaCardBody}>
-                <h3>Podcast</h3>
-                <p>
-                  I co-host <a href="https://www.youtube.com/@MyFirstParty">My First Party</a>, a political podcast aimed at
-                  inspiring listeners to get involved in grassroots political campaigns and improve their nation, whatever
-                  that looks like for them (I avoid letting the show become simply a
-                  sermon for my own views).
-                </p>
-                <p>Reach out if you have ideas for the show!</p>
-              </div>
-              <div className={s.mediaCardImage}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={'images/Owen_podcast.webp'} alt="Owen laughing beside a podcast microphone"/>
-              </div>
-            </article>
+            <MediaCard id="podcast" image="/images/Owen_podcast.webp" imageAlt="Owen laughing beside a podcast microphone">
+              <h3>Podcast</h3>
+              <p>
+                I co-host <a href="https://www.youtube.com/@MyFirstParty">My First Party</a>, a political podcast aimed at
+                inspiring listeners to get involved in grassroots political campaigns and improve their nation, whatever
+                that looks like for them (I avoid letting the show become simply a
+                sermon for my own views).
+              </p>
+              <p>Reach out if you have ideas for the show!</p>
+            </MediaCard>
 
-            <article id="tours" className={`${s.card} ${s.mediaCard}`}>
-              <div className={s.mediaCardBody}>
-                <h3>Tours</h3>
-                <p>
-                  Everyone's been to a café; everyone's been to a gallery; but do you get to hang out with real locals?
-                </p>
-                <p>
-                  This is why I started the <a href={"https://hanginggardensbrunswick.com.au/"}>Hanging Gardens of Brunswick</a>:
-                  it's a chance to visit a beautiful balcony garden and hang out with Brunswick locals, chatting about
-                  the famous neighbourhood or whatever else comes to mind − it's an authentic chat, not a scripted tour.
-                </p>
-                <p>
-                  If you're a tourist who would like to get a taste of what no guidebook can
-                  capture, then make sure to <a href={"https://hanginggardensbrunswick.com.au/"}>book a slot</a>.
-                </p>
-              </div>
-              <div className={s.mediaCardImage}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={'images/hanging_baskets.webp'} alt="Hanging baskets of native plants beneath a steel grate"/>
-              </div>
-            </article>
-            <article id="social-club" className={`${s.card} ${s.mediaCard}`}>
-              <div className={s.mediaCardBody}>
-                <h3>Social Club</h3>
-                <p>
-                  For my neighbourhood in Brunswick, I started the social club This is Ovens Street,
-                  named in honour of King Leonidas of Sparta, who has a statue nearby in <a href={"https://maps.app.goo.gl/sG4dprddSp3KaFVe9"}>Sparta Place</a>.
-                </p>
-                <p>
-                  If you live on Ovens Street or nearby, you're welcome to join: <a href={"https://discord.gg/Nra5ZYv5jk"}>https://discord.gg/Nra5ZYv5jk</a>
-                </p>
-                <p>After joining, you'll need someone you know with the <code>officer</code> role to give you the <code>resident</code> role.
-                </p>
-              </div>
-              <div className={s.mediaCardImage}>
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={'images/ovens_street.webp'} alt="A cartoon image of King Leonidas and a concrete apartment building"/>
-              </div>
-            </article>
-          </div>
-        </section>
+            <MediaCard id="tours" image="/images/hanging_baskets.webp" imageAlt="Hanging baskets of native plants beneath a steel grate">
+              <h3>Tours</h3>
+              <p>
+                Everyone's been to a café; everyone's been to a gallery; but do you get to hang out with real locals?
+              </p>
+              <p>
+                This is why I started the <a href={"https://hanginggardensbrunswick.com.au/"}>Hanging Gardens of Brunswick</a>:
+                it's a chance to visit a beautiful balcony garden and hang out with Brunswick locals, chatting about
+                the famous neighbourhood or whatever else comes to mind − it's an authentic chat, not a scripted tour.
+              </p>
+              <p>
+                If you're a tourist who would like to get a taste of what no guidebook can
+                capture, then make sure to <a href={"https://hanginggardensbrunswick.com.au/"}>book a slot</a>.
+              </p>
+            </MediaCard>
+            <MediaCard id="social-club" image="/images/ovens_street.webp" imageAlt="A cartoon image of King Leonidas and a concrete apartment building">
+              <h3>Social Club</h3>
+              <p>
+                For my neighbourhood in Brunswick, I started the social club This is Ovens Street,
+                named in honour of King Leonidas of Sparta, who has a statue nearby in <a href={"https://maps.app.goo.gl/sG4dprddSp3KaFVe9"}>Sparta Place</a>.
+              </p>
+              <p>
+                If you live on Ovens Street or nearby, you're welcome to join: <a href={"https://discord.gg/Nra5ZYv5jk"}>https://discord.gg/Nra5ZYv5jk</a>
+              </p>
+              <p>After joining, you'll need someone you know with the <code>officer</code> role to give you the <code>resident</code> role.
+              </p>
+            </MediaCard>
+          </CardGrid>
+        </Section>
 
-        <section id="contact" aria-labelledby="contact-heading" className={s.section}>
-          <h2 id="contact-heading" className={s.sectionHeading}>Contact me</h2>
-          <div className={s.card}>
+        <Section id="contact" title="Contact me">
+          <Card>
             {/* Submissions to Kwes are protected by reCAPTCHA v3. Kwes reads its validation
             rules from the non-standard `rules` attribute. */}
             <form
@@ -247,11 +223,10 @@ export default function Home() {
             {/* Load after hydration, since Kwes adds its own error and success messages to the form */}
             <Script src={`https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_SITE_KEY}`} strategy="lazyOnload"/>
             <Script src="https://kwes.io/v2/kwes-script.js" strategy="lazyOnload"/>
-          </div>
-        </section>
-      </main>
+          </Card>
+        </Section>
+      </Main>
 
-      <Footer/>
-    </div>
+    </>
   );
 }
