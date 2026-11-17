@@ -43,11 +43,13 @@ export default function UndergroundFoundation() {
               from <code>$300</code> / month to <code>$23.86</code> / month, <b>a cost reduction of 92%</b>.
             </p>
             <p>
-              During the migration, all payments were successfully migrated from NationBuilder to a new Stripe account
+              During the migration, all payments were successfully migrated from NationBuilder to a
+              new <Link rel="nofollow" href="https://stripe.com">Stripe</Link> account
               without donors needing to recreate their monthly commitments.
             </p>
             <p>
-              All pages were migrated and most were reconstructed using Wagtail blocks, so even Fusion's most customised
+              All pages were migrated and most were reconstructed
+              using <Link href={"https://wagtail.org/"}>Wagtail</Link> blocks, so even Fusion's most customised
               HTML can now be edited with rich text and accurate, canonical previews for how it will look on mobile,
               tablet and desktop:
             </p>
@@ -65,7 +67,8 @@ export default function UndergroundFoundation() {
             </Screenshots>
             <p>
               Since users couldn't be migrated with their passwords, it could have been a lot of friction for users to
-              reset their passwords, but by building on top of Django, we could use OAuth and provide three common
+              reset their passwords, but by building on top of <Link href={"https://www.djangoproject.com/"}>Django</Link>, we
+              could use <Link href={"https://oauth.net/2/"}>OAuth</Link> and provide three common
               options.
             </p>
             <Screenshots>
@@ -85,13 +88,16 @@ export default function UndergroundFoundation() {
                           width={400}/>
             </Screenshots>
             <p>
-              Notice too that the admin panels support internationalisation − I don't wish for the spread of this
-              software to be limited to English-speaking places.
+              Notice too that the admin panels
+              support <Link href={"https://developer.mozilla.org/en-US/docs/Glossary/Internationalization"}>internationalisation</Link> − I
+              don't wish for the spread of this software to be limited to English-speaking places.
             </p>
             <p>
               Although the application currently seems very similar to NationBuilder, it should be mentioned that
-              design decisions are already supporting the option of running things in a federated way, so that a
-              grassroots movement might have cells around a country, with each only holding a subset of member records.
+              design decisions are already supporting the option of running things in
+              a <Link href={"https://en.wikipedia.org/wiki/Federation_(information_technology)"}>federated</Link> way,
+              so that a grassroots movement might have cells around a country, with each only holding a subset of
+              member records.
             </p>
             <Screenshots>
               <Screenshot
@@ -101,10 +107,13 @@ export default function UndergroundFoundation() {
               />
             </Screenshots>
             <p>
-              Most of our objects use UUIDs so that merging two cells together is unlikely to result in conflicts. We
-              are also supporting the notion of Feed Pages that normally render as HTML, but which are also available as
-              RSS feeds. Underground CRM instances can then subscribe to the RSS feed from another instance and publish
-              those events or blog posts alongside their own.
+              Most of our objects
+              use <Link href={"https://en.wikipedia.org/wiki/Universally_unique_identifier"}>UUIDs</Link> so that
+              merging two cells together is unlikely to result in conflicts. We
+              are also supporting the notion of Feed Pages that normally render as HTML, but which are also available
+              as <Link href={"https://en.wikipedia.org/wiki/RSS"}>RSS</Link> feeds. Underground CRM instances can then
+              subscribe to the RSS feed from another instance and publish those events or blog posts alongside their
+              own.
             </p>
             <p>
               For organisations worried about having their membership disrupted, it's also worth mentioning that the
@@ -148,7 +157,7 @@ export default function UndergroundFoundation() {
               Where Underground CRM is Suitable
             </h2>
             <p>
-              Targeting political organisations has a few impacts on the design of the application:
+              Targeting grassroots organisations has a few impacts on the design of the application:
             </p>
             <ul>
               <li>Political groups have a blurry line between fans, members and staff. This means that
@@ -165,7 +174,8 @@ export default function UndergroundFoundation() {
               <li>
                 <p>
                   Going with Underground CRM, your organisation will need at least one technical person, or you'd need
-                  to be open to hiring someone like myself to occasionally update things for you (I am open to this).
+                  to be open to hiring someone like myself to occasionally update things for you (
+                  <Link href="/#contact">I am open to this</Link>).
                   If you decide that you must absolutely avoid anything technical, then you might prefer
                   a <Link href="https://cloud.google.com/discover/what-is-no-code?hl=en">no-code</Link> option, but
                   keep in mind that <i>if you ever do</i> end up getting a technical person, they
@@ -240,6 +250,9 @@ export default function UndergroundFoundation() {
               The measure of success will not just be in the operating costs or the page-load speeds, but in an
               organisation's ability to onboard more members as contributors, which will in turn help to gain more
               members and more influence.
+            </p>
+            <p>
+              If you'd like my services in onboarding you to Underground CRM, then <Link href="/#contact">reach out!</Link>
             </p>
             <Screenshot
                 src="/images/underground-crm/Owen_and_Kieran.webp"

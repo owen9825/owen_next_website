@@ -10,7 +10,7 @@ import s from './styles.module.scss';
 const KWES_FORM_ID = "l6IzI5rwtjzTd6GFvc9F";
 const RECAPTCHA_SITE_KEY = "6LfHjr0bAAAAAGZE_F4hiMIo3nik5dTeg7frac80";
 // https://dev.to/xandemon/developer-icons-an-awesome-open-source-library-for-free-tech-logos-299p
-import { ClaudeAI, DeepSeek, Gemini, Python, Django, FastAPI, Java, Go, JavaScript, TypeScript, React as ReactIcon, NodeJs, NextJs, Solidity, Docker, MySQL, PostgreSQL, Redis, Elastic, Cloudflare, AWS, GoogleCloud, Linux, Ubuntu, GitHubDark } from "developer-icons";
+import { ClaudeAI, DeepSeek, Gemini, Python, Django, FastAPI, Java, Go, JavaScript, TypeScript, React as ReactIcon, NodeJs, NextJs, Solidity, Docker, MySQL, PostgreSQL, Redis, Elastic, Swagger, Cloudflare, AWS, GoogleCloud, Linux, Ubuntu, GitHubDark } from "developer-icons";
 
 const socials = [
   { name: "GitHub", icon: "github", url: "https://www.github.com/owen9825" },
@@ -41,6 +41,7 @@ const technologies = [
   { name: "PostgreSQL", Icon: PostgreSQL, url: "https://www.postgresql.org" },
   { name: "Redis", Icon: Redis, url: "https://redis.io" },
   { name: "Elastic", Icon: Elastic, url: "https://www.elastic.co" },
+  { name: "Swagger", Icon: Swagger, url: "https://swagger.io" },
   { name: "Cloudflare", Icon: Cloudflare, url: "https://www.cloudflare.com" },
   { name: "Amazon Web Services", Icon: AWS, url: "https://aws.amazon.com" },
   { name: "Google Cloud", Icon: GoogleCloud, url: "https://cloud.google.com" },
