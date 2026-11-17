@@ -2,6 +2,29 @@
 
 // Building blocks shared by every page: see src/components/Page/index.tsx
 
+// A tinted panel with an accent bar down the left edge, shared by Screenshots
+// and blockquotes
+%accentPanel {
+  position: relative;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(201, 184, 255, 0.28), rgba(143, 155, 255, 0.16));
+  box-shadow: inset 0 0 0 1px rgba(143, 155, 255, 0.18);
+
+  // The accent bar: solid at the left edge, fading out to the right. It runs
+  // the full height, so the colour follows the panel's rounded corners.
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0 auto 0 0;
+    width: 2rem;
+    border-radius: inherit;
+    background: linear-gradient(180deg, var(--pink), var(--blue));
+    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 3px, rgba(0, 0, 0, 0.35) 4px, transparent 100%);
+    mask-image: linear-gradient(90deg, #000 0, #000 3px, rgba(0, 0, 0, 0.35) 4px, transparent 100%);
+    pointer-events: none;
+  }
+}
+
 /* ---------- Sections ---------- */
 
 .main {
@@ -73,6 +96,21 @@
 
   li::marker {
     color: var(--blue);
+  }
+
+  // Quotes sit on the same tinted panel and accent bar as Screenshots, in a
+  // muted grey (like Bootstrap's "secondary") so they read as an aside
+  blockquote {
+    @extend %accentPanel;
+    margin-block: 0.9rem;
+    padding: 0.85rem 1rem 0.85rem 1.35rem;
+    isolation: isolate;
+    color: #6c757d;
+
+    // Keep the accent bar's fade beneath the text
+    &::before {
+      z-index: -1;
+    }
   }
 
   h2,
@@ -156,15 +194,12 @@
 // Two columns on wider screens, so a wide screenshot can sit beneath a pair of
 // narrower ones; a single column on phones.
 .screenshots {
-  position: relative;
+  @extend %accentPanel;
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: 1.5rem 1.25rem;
   margin-block: 1.5rem;
   padding: 1rem 1rem 1rem 1.35rem;
-  border-radius: 16px;
-  background: linear-gradient(135deg, rgba(201, 184, 255, 0.28), rgba(143, 155, 255, 0.16));
-  box-shadow: inset 0 0 0 1px rgba(143, 155, 255, 0.18);
 
   // Side-by-side screenshots share a vertical centre
   @media (min-width: 640px) {
@@ -176,25 +211,16 @@
   > * {
     position: relative;
   }
-
-  // The accent bar: solid at the left edge, fading out to the right. It runs
-  // the full height, so the colour follows the panel's rounded corners.
-  &::before {
-    content: "";
-    position: absolute;
-    inset: 0 auto 0 0;
-    width: 2rem;
-    border-radius: inherit;
-    background: linear-gradient(180deg, var(--pink), var(--blue));
-    -webkit-mask-image: linear-gradient(90deg, #000 0, #000 3px, rgba(0, 0, 0, 0.35) 4px, transparent 100%);
-    mask-image: linear-gradient(90deg, #000 0, #000 3px, rgba(0, 0, 0, 0.35) 4px, transparent 100%);
-    pointer-events: none;
-  }
 }
 
 // A screenshot with its caption beneath
 .screenshot {
   margin: 0;
+
+  // On its own, outside a Screenshots group, give it the same room as a group
+  :not(.screenshots) > & {
+    margin-block: 1.5rem;
+  }
 
   // Alone in a group, it takes the full row, centred when a width keeps it narrower
   &:only-child {

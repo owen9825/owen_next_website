@@ -59,6 +59,12 @@ a:focus-visible {
   text-decoration-color: currentColor;
 }
 
+/* Italics lean into the following space, so give them a touch more room */
+i,
+em {
+  padding-right: 0.08em;
+}
+
 ::selection {
   background: var(--blush);
   color: var(--navy);

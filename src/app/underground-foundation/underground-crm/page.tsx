@@ -101,10 +101,10 @@ export default function UndergroundFoundation() {
               />
             </Screenshots>
             <p>
-              Most of our objects use UUIDs, so that merging two cells together is unlikely to result in conflicts. We
+              Most of our objects use UUIDs so that merging two cells together is unlikely to result in conflicts. We
               are also supporting the notion of Feed Pages that normally render as HTML, but which are also available as
               RSS feeds. Underground CRM instances can then subscribe to the RSS feed from another instance and publish
-              those events or blog posts alongside its own.
+              those events or blog posts alongside their own.
             </p>
             <p>
               For organisations worried about having their membership disrupted, it's also worth mentioning that the
@@ -127,17 +127,19 @@ export default function UndergroundFoundation() {
               realistically be pre-built as static pages
               using <Link href="https://pypi.org/project/wagtail-bakery/">wagtail-bakery</Link>.
             </p>
+            <Screenshot src={"/images/architecture.webp"} alt={"An architecture diagram for Underground CRM"}
+                        caption={"The architecture of Underground CRM as deployed for fusionparty.org.au"}/>
             <p>
               Framing the public pages as potentially static is how I achieved the loading times of
               ~13ms (<Link href="https://web.dev/articles/lcp">LCP</Link>) for the Fusion website −
               I'm using <Link href="https://jasonformat.com/islands-architecture/">React Islands</Link>, a pattern
               where the pages have placeholder <i>islands</i> that are rendered lazily on the client side, each with
-              its own React root.
+              their own React root.
             </p>
             <p>
               You'll notice that these islands don't appear in
-              the <Link href="https://github.com/Underground-Foundation/underground-crm/">underground-crm</Link>
-              repository − that repository holds all the logic for generic political parties, then the idea is that
+              the <Link href="https://github.com/Underground-Foundation/underground-crm/">underground-crm</Link> repository −
+              that repository holds all the logic for generic political parties, then the idea is that
               each specific organisation will have their own repository that implements a style and a deployment setup.
               For the Fusion Party, this is my private
               repository <Link href="https://github.com/owen9825/fusion-underground">fusion-underground</Link>.
@@ -149,6 +151,45 @@ export default function UndergroundFoundation() {
               Targeting political organisations has a few impacts on the design of the application:
             </p>
             <ul>
+              <li>Political groups have a blurry line between fans, members and staff. This means that
+                underground-crm is getting a permission model that allows a user to see only specific user records,
+                or to modify only specific web pages. Permissions would typically apply to <i>all records</i> or
+                <i>all pages</i>, so you might not need the extra complexity here.
+              </li>
+              <li>
+                The application has been architected around keeping costs <i>very low</i>. For instance, we're
+                running our own <Link href="https://github.com/mountain-pass/addressr">Addressr</Link> instance for
+                geocoding Australian addresses, and updating it every 3 months when the government releases new postal
+                address data.
+              </li>
+              <li>
+                <p>
+                  Going with Underground CRM, your organisation will need at least one technical person, or you'd need
+                  to be open to hiring someone like myself to occasionally update things for you (I am open to this).
+                  If you decide that you must absolutely avoid anything technical, then you might prefer
+                  a <Link href="https://cloud.google.com/discover/what-is-no-code?hl=en">no-code</Link> option, but
+                  keep in mind that <i>if you ever do</i> end up getting a technical person, they
+                  will <Link href="https://news.ycombinator.com/item?id=22033827"><i>hate</i> having to work with a
+                  "no-code" setup</Link>.
+                </p>
+                <blockquote>
+                  "No code" is just someone else's code that you have no control
+                  over − <Link href="https://www.reddit.com/r/programming/s/v6ZkNBpe7W">OnlyForF1</Link>
+                </blockquote>
+              </li>
+              <li>
+                <p>The application is suitable for self-hosting as much as possible. If you are worried about a
+                  service provider accessing or leaking your membership database, Underground CRM is for you.
+                </p>
+                <p><b>If
+                  you're worried about being locked in by a service provider; rug-pulled by a service provider; or
+                  shut down by a government; then Underground CRM is for you.</b>
+                </p>
+                <p>
+                  If you're not worried about a big subscription fee or you don't think you'll ever have
+                  enemies, then you have more options for your CRM, some of which have fancy AI built in.
+                </p>
+              </li>
               <li>
                 <p>
                   We use <Link href="https://docs.djangoproject.com/en/6.0/topics/templates/">Django's Jinja2
@@ -164,28 +205,11 @@ export default function UndergroundFoundation() {
                   components, whereas back-end engineers or non-engineers would probably find template files more
                   intuitive.
                 </p>
-              </li>
-              <li>We carry out geocoding for a person's address. This is only necessary if you need to see it on a
-                map or if you want to calculate distances.
-              </li>
-              <li>Political groups have a blurry line between fans, members and staff. This means that
-                underground-crm is getting a permission model that allows a user to see only specific user records,
-                or to modify only specific web pages. Permissions would typically apply to <i>all</i> records or
-                <i>all</i> pages, so you might not need the extra complexity here.
-              </li>
-              <li>
-                The application has been architected around keeping costs <i>very low</i>. For instance, we're
-                running our own <Link href="https://github.com/mountain-pass/addressr">Addressr</Link> instance for
-                geocoding, and updating it every 3 months when the government releases new postal address data.
-              </li>
-              <li>
-                <p>The application is suitable for self-hosting as much as possible. <b>If you are worried about being
-                locked in by your cloud provider; rug-pulled by your cloud provider; or shut down by a government;
-                  then Underground CRM is for you.</b>
-                </p>
                 <p>
-                  If you're not worried about a big subscription fee or you don't think you'll ever have powerful
-                  enemies, then you have more options for your CRM, some of which have fancy AI built in.
+                  If you don't wish to use the built-in templates, you can
+                  use <Link href="https://wagtail.org/headless/">Wagtail's headless mode</Link>, whereby your
+                  page is transmitted as a JSON blob and then rendered by some other "head",
+                  eg <Link href="https://astro.build/">Astro</Link>.
                 </p>
               </li>
               <li>
@@ -197,29 +221,31 @@ export default function UndergroundFoundation() {
               </li>
               <li>
                 You need to sort out your own deployment; we do not offer hosting. That said, I am available for
-                contracting and I am willing to work on retainer, jumping in to perform maintenance or bug fixes when
+                contracting and I am willing to work on retainer, jumping in to perform maintenance or bug-fixes when
                 needed. I am not going to limit my services just to allies of the Fusion Party.
               </li>
             </ul>
-            {/* todo: migrating to underground CRM */}
-            {/*<h2>Contributing</h2>
             <p>
-              These organisations providing the core services might have been not-for-profit, but they weren't for loss
-              either. The most obvious proof is the fact that their source code is not publicly available. They're
-              locking in their customers just like any other profit-driven company, and the fact that their source
-              code wasn't publicly available meant that whenever we ran into limitations of the platform, we just had
-              to suck it up − we couldn't change it.
-            </p>*/}
-            {/*<p>
-              Sure, <Link href="https://nationbuilder.com/" rel="nofollow">NationBuilder</Link> offers an API, but it
-              only does limited actions. This is presumably a way to push subscribers into NationBuilder's own
-              <Link href="https://nationbuilder.com/automations" rel="nofollow">Automations</Link>.
+              So, the perfect scenario for Underground CRM is an organisation that's already using NationBuilder and is
+              happy with its existing styles, but wants to move to something that has a much lower operating cost,
+              and functionality that's better suited to Australian electorates.
             </p>
             <p>
-              There were various "open-source" options out there too, but many of these ended up being a freemium model,
-              so we'd still be vulnerable to lock-in and
-
-            </p>*/}
+              As more clients switch over to Underground CRM, the community of possible contributors grows, so you'll
+              see a growing pace for improvements. I switched Fusion over when I felt it had reached
+              the <Link href="https://en.wikipedia.org/wiki/Minimum_viable_product">MVP</Link> stage, and now we're at
+              the stage of making things even better than NationBuilder.
+            </p>
+            <p>
+              The measure of success will not just be in the operating costs or the page-load speeds, but in an
+              organisation's ability to onboard more members as contributors, which will in turn help to gain more
+              members and more influence.
+            </p>
+            <Screenshot
+                src="/images/underground-crm/Owen_and_Kieran.webp"
+                alt="Owen and a volunteer during the 2023 Aston federal by-election"
+                caption="Campaigning with a fellow believer during the 2023 Aston by-election"
+              />
           </Prose>
         </Card>
       </Section>
