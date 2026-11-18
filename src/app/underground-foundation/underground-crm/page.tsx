@@ -140,7 +140,7 @@ export default function UndergroundFoundation() {
                         caption={"The architecture of Underground CRM as deployed for fusionparty.org.au"}/>
             <p>
               Framing the public pages as potentially static is how I achieved the loading times of
-              ~13ms (<Link href="https://web.dev/articles/lcp">LCP</Link>) for the Fusion website −
+              ~200ms (<Link href="https://web.dev/articles/fcp">FCP</Link>) for the Fusion website −
               I'm using <Link href="https://jasonformat.com/islands-architecture/">React Islands</Link>, a pattern
               where the pages have placeholder <i>islands</i> that are rendered lazily on the client side, each with
               their own React root.
