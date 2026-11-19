@@ -147,6 +147,27 @@ export default function Home() {
               <p><Link href="/underground-foundation/">Read more about the foundation →</Link></p>
             </MediaCard>
 
+            <MediaCard id="tanuki" image="/images/tanuki_background.webp" imageAlt="The tanuki mascot in front of pixellated bottles">
+              <h3>Tanuki.ai</h3>
+              <p>
+                I was the founder of tanuki.ai, a startup for bars and restaurants that allowed them to "see patrons,
+                not pixels". The idea was to use the pre-existing cameras in venues, run computer vision on the footage
+                and answer questions like "how long does this person stay?"; "how often do they return"?; or "are they
+                smiling?"
+              </p>
+              <p>
+                Instead of optimising only for <i>revenue per night</i>, venues could also optimise for
+                <i>smiles per hour</i> and could quantify the demographics of guests.
+              </p>
+              <p>
+                In 2018, after getting feedback from &gt; 100 bars across 4 countries, we
+                reluctantly killed the idea − the feedback was that it was "creepy" to use the data from bars' existing
+                cameras. I was also the CTO and first employee
+                at <Link href={"https://bevrly.com"}>Bevrly</Link> (wine analytics) at the time, so it wasn't giving up on startup
+                life altogether.
+              </p>
+            </MediaCard>
+
             <MediaCard id="podcast" image="/images/Owen_podcast.webp" imageAlt="Owen laughing beside a podcast microphone">
               <h3>Podcast</h3>
               <p>
