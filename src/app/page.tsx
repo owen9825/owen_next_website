@@ -15,7 +15,7 @@ import { ClaudeAI, DeepSeek, Gemini, Python, Django, FastAPI, Java, Go, JavaScri
 const socials = [
   { name: "GitHub", icon: "github", url: "https://www.github.com/owen9825" },
   { name: "LinkedIn", icon: "linkedin", url: "https://www.linkedin.com/in/owen-miller-12112273/" },
-  { name: "Stack Overflow", icon: "stack-overflow", url: "https://stackoverflow.com/users/1495729/kokociel" },
+  { name: "Stack Overflow", icon: "stack-overflow", url: "https://stackoverflow.com/users/owenfm" },
   { name: "Instagram", icon: "instagram", url: "https://www.instagram.com/owenfm_/" },
   { name: "Facebook", icon: "facebook", url: "https://www.facebook.com/owen.miller.986" },
   { name: "Spotify", icon: "spotify", url: "https://open.spotify.com/user/12140765598" },
