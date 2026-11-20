@@ -139,7 +139,7 @@ export default function Home() {
               <ul>
                 <li><a href={"/underground-foundation/underground-crm"}>underground-crm</a>: an
                   application for a membership database, rich-text editing of websites, and bulk email. Very
-                  comparable to NationBuilder, but open-source and much lower cost.</li>
+                  comparable to NationBuilder, but open-source, much lower cost, and dramatically faster.</li>
                 <li><a href={"https://github.com/Underground-Foundation/underground-ballots"}>underground-ballots</a>:
                   software for ranking candidates in an electorate and rendering how-to-vote PDFs.
                 </li>

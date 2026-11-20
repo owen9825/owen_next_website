@@ -43,6 +43,9 @@ export default function UndergroundFoundation() {
               from <code>$300</code> / month to <code>$23.86</code> / month, <b>a cost reduction of 92%</b>.
             </p>
             <p>
+              The loading times for most pages have gone from ~3 seconds to ~30 ms: <b>a reduction of 99%</b>.
+            </p>
+            <p>
               During the migration, all payments were successfully migrated from NationBuilder to a
               new <Link rel="nofollow" href="https://stripe.com">Stripe</Link> account
               without donors needing to recreate their monthly commitments.
@@ -140,7 +143,7 @@ export default function UndergroundFoundation() {
                         caption={"The architecture of Underground CRM as deployed for fusionparty.org.au"}/>
             <p>
               Framing the public pages as potentially static is how I achieved the loading times of
-              ~200ms (<Link href="https://web.dev/articles/fcp">FCP</Link>) for the Fusion website −
+              ~25ms (<Link href="https://web.dev/articles/fcp">FCP</Link>) for the Fusion website −
               I'm using <Link href="https://jasonformat.com/islands-architecture/">React Islands</Link>, a pattern
               where the pages have placeholder <i>islands</i> that are rendered lazily on the client side, each with
               their own React root.
