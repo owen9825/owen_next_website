@@ -8,7 +8,6 @@
 # override with AWS_PROFILE, S3_BUCKET or CLOUDFRONT_DISTRIBUTION_ID.
 set -euo pipefail
 
-nvm use latest
 export AWS_PROFILE="${AWS_PROFILE:-owen}"
 BUCKET="${S3_BUCKET:-owen-next-website}"
 DISTRIBUTION_ID="${CLOUDFRONT_DISTRIBUTION_ID:-E27PB7P9TJXBYR}"
