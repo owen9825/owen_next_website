@@ -179,7 +179,7 @@ export default function Home() {
               <p>Reach out if you have ideas for the show!</p>
             </MediaCard>
 
-            <MediaCard id="tours" image="/images/hanging_baskets.webp" imageAlt="Hanging baskets of native plants beneath a steel grate">
+            <MediaCard id="tours" image="/images/hanging_baskets-409w.webp" imageAlt="Hanging baskets of native plants beneath a steel grate">
               <h3>Tours</h3>
               <p>
                 Everyone's been to a café; everyone's been to a gallery; but do you get to hang out with real locals?

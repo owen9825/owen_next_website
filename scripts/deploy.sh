@@ -8,6 +8,7 @@
 # override with AWS_PROFILE, S3_BUCKET or CLOUDFRONT_DISTRIBUTION_ID.
 set -euo pipefail
 
+nvm use latest
 export AWS_PROFILE="${AWS_PROFILE:-owen}"
 BUCKET="${S3_BUCKET:-owen-next-website}"
 DISTRIBUTION_ID="${CLOUDFRONT_DISTRIBUTION_ID:-E27PB7P9TJXBYR}"
@@ -21,12 +22,23 @@ NEXT_DIST_DIR=out npm run build
 aws s3 sync out/_next "s3://$BUCKET/_next" $DRYRUN \
   --cache-control "public, max-age=31536000, immutable"
 
-# Everything else (HTML, images, videos) can change between deploys.
+# Images and icons rarely change, so browsers may keep them for 30 days. Their
+# names aren't hashed, so give a changed image a new filename, or returning
+# visitors will keep seeing the old one until their copy expires.
+# Note: sync skips files that haven't changed, so a new --cache-control here
+# only reaches existing objects once they're re-uploaded.
+LONG_CACHE="public, max-age=2592000"
+for dir in images icons; do
+  aws s3 sync "out/$dir" "s3://$BUCKET/$dir" $DRYRUN --delete \
+    --cache-control "$LONG_CACHE"
+done
+
+# Everything else (HTML) can change between deploys, so browsers keep it for 30 minutes.
 # --delete removes files that are no longer in the build; old _next assets are
 # kept for a while, since a cached page may still be pointing at them.
 aws s3 sync out "s3://$BUCKET" $DRYRUN --delete \
-  --exclude "_next/*" \
-  --cache-control "public, max-age=300"
+  --exclude "_next/*" --exclude "images/*" --exclude "icons/*" \
+  --cache-control "public, max-age=1800"
 
 if [ "$DRYRUN" = "--dryrun" ]; then
   echo "Dry run: skipped CloudFront invalidation"

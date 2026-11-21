@@ -85,8 +85,10 @@ export const MediaCard = ({ id, image, imageAlt, children }: MediaCardProps) => 
   <article id={id} className={`${s.card} ${s.mediaCard}`}>
     <div className={s.mediaCardBody}>{children}</div>
     <div className={s.mediaCardImage}>
+      {/* Lazy, so these wait until they're near the viewport and don't compete with the hero's
+          polaroids; low priority in case one is already on screen when the page loads */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={image} alt={imageAlt}/>
+      <img src={image} alt={imageAlt} loading="lazy" fetchPriority="low" decoding="async"/>
     </div>
   </article>
 );

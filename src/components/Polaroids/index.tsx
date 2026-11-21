@@ -12,6 +12,8 @@ type Photo = {
   small: { src: string; width: number }[];
   alt: string;
   id?: string;
+  /** Fetch with high priority: it's the page's LCP element */
+  priority?: boolean;
   landscape?: boolean;
   back?: boolean;
 };
@@ -39,13 +41,14 @@ const photos: Photo[] = [
     ],
     alt: "Owen Miller, smiling",
     id: "header-profile-image",
+    priority: true,
   },
 ];
 
 /**
- * Clicking a polaroid lifts it to the horizontal centre of the viewport, keeping its top edge where it
- * was, and enlarges it so the photo is min(90vw, its intrinsic width). Click again, click elsewhere or
- * press Escape to put it back.
+ * Clicking a polaroid lifts it to the horizontal centre of the viewport and enlarges it so the photo is
+ * min(90vw, its intrinsic width), and the whole print no taller than 90vh. Its top edge stays where it
+ * was unless that would leave part of it off-screen. Click again, click elsewhere or press Escape to put it back.
  */
 const Polaroids = () => {
   const figures = useRef<(HTMLElement | null)[]>([]);
@@ -62,12 +65,26 @@ const Polaroids = () => {
     // centre, regardless of tilt or hover scale. offsetWidth/Height ignore transforms.
     const rect = figure.getBoundingClientRect();
     const viewportWidth = document.documentElement.clientWidth;
-    // naturalWidth would be the small rendition's, so use the full image's known width
-    const targetImageWidth = Math.min(viewportWidth * 0.9, photos[index].width);
-    const scale = targetImageWidth / img.offsetWidth;
-    const dx = viewportWidth / 2 - (rect.left + rect.width / 2);
-    // Scaling about the centre pushes the top up by (scale - 1) * height / 2; shift down to compensate
-    const dy = ((scale - 1) * figure.offsetHeight) / 2;
+    const viewportHeight = document.documentElement.clientHeight;
+    // The photo is at most 90vw wide (and no wider than the full image, whose naturalWidth we can't use
+    // as it'd be the small rendition's), and the whole print, frame included, at most 90vh tall
+    const scale = Math.min(
+      Math.min(viewportWidth * 0.9, photos[index].width) / img.offsetWidth,
+      (viewportHeight * 0.9) / figure.offsetHeight,
+    );
+    const targetImageWidth = img.offsetWidth * scale;
+    const centreX = rect.left + rect.width / 2;
+    const centreY = rect.top + rect.height / 2;
+    const scaledHeight = figure.offsetHeight * scale;
+    // Keep the top edge where it was, unless that would push the print off the bottom (or top) of the screen
+    // (it's at most 90vh tall, so a 5vh gap above and below always fits)
+    const gap = viewportHeight * 0.05;
+    const top = Math.min(
+      Math.max(centreY - figure.offsetHeight / 2, gap),
+      viewportHeight - gap - scaledHeight,
+    );
+    const dx = viewportWidth / 2 - centreX;
+    const dy = top + scaledHeight / 2 - centreY;
 
     setExpanded({
       index,
@@ -130,6 +147,7 @@ const Polaroids = () => {
                 src={photo.small[0].src}
                 srcSet={[...photo.small, photo].map((r) => `${r.src} ${r.width}w`).join(", ")}
                 sizes={isExpanded ? `${expanded.imageWidth}px` : `${photo.small[0].width}px`}
+                fetchPriority={photo.priority ? "high" : undefined}
                 className={s.portrait}
                 id={photo.id}
                 alt={photo.alt}
