@@ -75,21 +75,34 @@ export const Card = ({ children }: Children) => (
 
 type MediaCardProps = Children & {
   id?: string;
+  title: ReactNode;
   /** Path under public/, starting with a slash, e.g. "/images/wombat.webp" */
   image: string;
+  /**
+   * Renditions of the image with their widths, e.g. "/images/wombat-409w.webp 409w, /images/wombat.webp 1456w".
+   * On mobile, the image is a 4:3 thumbnail 40% of the card wide. Beside the text, it fills the card's
+   * full height and is cropped to fit, so it's drawn much wider than its column (about 810px for the
+   * Tanuki card), which is why we ask for 820px there.
+   */
+  srcSet?: string;
   imageAlt: string;
 };
 
-/** A card with an image filling its right edge */
-export const MediaCard = ({ id, image, imageAlt, children }: MediaCardProps) => (
+/**
+ * A card with an image filling its right edge, beside the title and text. On mobile, the image shares
+ * a row with the title only, and the text runs full width beneath them.
+ */
+export const MediaCard = ({ id, title, image, srcSet, imageAlt, children }: MediaCardProps) => (
   <article id={id} className={`${s.card} ${s.mediaCard}`}>
-    <div className={s.mediaCardBody}>{children}</div>
+    <h3 className={s.mediaCardTitle}>{title}</h3>
     <div className={s.mediaCardImage}>
       {/* Lazy, so these wait until they're near the viewport and don't compete with the hero's
           polaroids; low priority in case one is already on screen when the page loads */}
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={image} alt={imageAlt} loading="lazy" fetchPriority="low" decoding="async"/>
+      <img src={image} srcSet={srcSet} sizes={srcSet && "(min-width: 850px) 820px, 40vw"} alt={imageAlt}
+           loading="lazy" fetchPriority="low" decoding="async"/>
     </div>
+    <div className={s.mediaCardBody}>{children}</div>
   </article>
 );
 

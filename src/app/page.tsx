@@ -130,8 +130,8 @@ export default function Home() {
 
         <Section id="explore" title="More to Explore">
           <CardGrid>
-            <MediaCard id="underground" image="/images/wombat.webp" imageAlt="The wombat mascot for the Underground Foundation">
-              <h3>Underground Foundation</h3>
+            <MediaCard id="underground" title="Underground Foundation" image="/images/wombat.webp"
+                       srcSet="/images/wombat-409w.webp 409w, /images/wombat-820w.webp 820w, /images/wombat.webp 1456w" imageAlt="The wombat mascot for the Underground Foundation">
               <p>
                 I am the founder of the <a href={"/underground-foundation"}>Underground Foundation</a>,
                 an organisation for enabling underground & grassroots political movements. The current projects include:
@@ -147,8 +147,8 @@ export default function Home() {
               <p><Link href="/underground-foundation/">Read more about the foundation →</Link></p>
             </MediaCard>
 
-            <MediaCard id="tanuki" image="/images/tanuki_background.webp" imageAlt="The tanuki mascot in front of pixellated bottles">
-              <h3>Tanuki.ai</h3>
+            <MediaCard id="tanuki" title="Tanuki.ai" image="/images/tanuki_background.webp"
+                       srcSet="/images/tanuki_background-409w.webp 409w, /images/tanuki_background-820w.webp 820w, /images/tanuki_background.webp 2097w" imageAlt="The tanuki mascot in front of pixellated bottles">
               <p>
                 I was the founder of tanuki.ai, a startup for bars and restaurants that allowed them to "see patrons,
                 not pixels". The idea was to use the pre-existing cameras in venues, run computer vision on the footage
@@ -156,8 +156,8 @@ export default function Home() {
                 smiling?"
               </p>
               <p>
-                Instead of optimising only for <i>revenue per night</i>, venues could also optimise for
-                <i>smiles per hour</i> and could quantify the demographics of guests.
+                Instead of optimising only for <i>revenue per night</i>, venues could also optimise 
+                for <i>smiles per hour</i> and could quantify the demographics of guests.
               </p>
               <p>
                 In 2018, after getting feedback from &gt; 100 bars across 4 countries, we
@@ -168,8 +168,8 @@ export default function Home() {
               </p>
             </MediaCard>
 
-            <MediaCard id="podcast" image="/images/Owen_podcast.webp" imageAlt="Owen laughing beside a podcast microphone">
-              <h3>Podcast</h3>
+            <MediaCard id="podcast" title="Podcast" image="/images/Owen_podcast.webp"
+                       srcSet="/images/Owen_podcast-409w.webp 409w, /images/Owen_podcast.webp 647w" imageAlt="Owen laughing beside a podcast microphone">
               <p>
                 I co-host <a href="https://www.youtube.com/@MyFirstParty">My First Party</a>, a political podcast aimed at
                 inspiring listeners to get involved in grassroots political campaigns and improve their nation, whatever
@@ -179,8 +179,7 @@ export default function Home() {
               <p>Reach out if you have ideas for the show!</p>
             </MediaCard>
 
-            <MediaCard id="tours" image="/images/hanging_baskets-409w.webp" imageAlt="Hanging baskets of native plants beneath a steel grate">
-              <h3>Tours</h3>
+            <MediaCard id="tours" title="Tours" image="/images/hanging_baskets-409w.webp" imageAlt="Hanging baskets of native plants beneath a steel grate">
               <p>
                 Everyone's been to a café; everyone's been to a gallery; but do you get to hang out with real locals?
               </p>
@@ -194,8 +193,8 @@ export default function Home() {
                 capture, then make sure to <a href={"https://hanginggardensbrunswick.com.au/"}>book a slot</a>.
               </p>
             </MediaCard>
-            <MediaCard id="social-club" image="/images/ovens_street.webp" imageAlt="A cartoon image of King Leonidas and a concrete apartment building">
-              <h3>Social Club</h3>
+            <MediaCard id="social-club" title="Social Club" image="/images/ovens_street.webp"
+                       srcSet="/images/ovens_street-409w.webp 409w, /images/ovens_street.webp 520w" imageAlt="A cartoon image of King Leonidas and a concrete apartment building">
               <p>
                 For my neighbourhood in Brunswick, I started the social club This is Ovens Street,
                 named in honour of King Leonidas of Sparta, who has a statue nearby in <a href={"https://maps.app.goo.gl/sG4dprddSp3KaFVe9"}>Sparta Place</a>.

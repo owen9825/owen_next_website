@@ -2,9 +2,10 @@
 
 // Building blocks shared by every page: see src/components/Page/index.tsx
 
-// A tinted panel with an accent bar down the left edge, shared by Screenshots
-// and blockquotes
-%accentPanel {
+// A tinted panel with an accent bar down the left edge, shared by Screenshots,
+// blockquotes and media card titles on mobile. A mixin as well as a
+// placeholder, since @extend can't reach a placeholder from inside @media.
+@mixin accentPanel {
   position: relative;
   border-radius: 16px;
   background: linear-gradient(135deg, rgba(201, 184, 255, 0.28), rgba(143, 155, 255, 0.16));
@@ -23,6 +24,10 @@
     mask-image: linear-gradient(90deg, #000 0, #000 3px, rgba(0, 0, 0, 0.35) 4px, transparent 100%);
     pointer-events: none;
   }
+}
+
+%accentPanel {
+  @include accentPanel;
 }
 
 /* ---------- Sections ---------- */
@@ -126,22 +131,72 @@
   }
 }
 
-// Card with an image filling its right edge, top to bottom. The image is
-// absolutely positioned so the text sets the card height; object-fit
-// crops the image's left and right sides as needed.
+// Card with an image filling its right edge. On mobile, the image sits beside
+// the title only, with the text full width beneath; from 850px, it runs the
+// card's full height beside the title and text. The image is absolutely
+// positioned so the text sets the card height; object-fit crops it as needed.
 .mediaCard {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 40%;
+  grid-template-areas:
+    "title image"
+    "body body";
   padding: 0;
   overflow: hidden;
+
+  @media (min-width: 850px) {
+    grid-template-rows: auto 1fr;
+    grid-template-areas:
+      "title image"
+      "body image";
+  }
+}
+
+.mediaCardTitle {
+  grid-area: title;
+  padding: $card-padding;
+
+  // On mobile, a header band beside the image: the tinted accent panel, filling
+  // the row (square, as the card's rounded corner already clips it) with the
+  // title centred vertically
+  @media (max-width: 849.98px) {
+    @include accentPanel;
+    display: flex;
+    align-items: center;
+    border-radius: 0;
+
+    // Beats .card h3's margin, which would leave a gap beneath the band
+    .mediaCard & {
+      margin: 0;
+    }
+  }
+
+  @media (min-width: 850px) {
+    padding-bottom: 0;
+  }
 }
 
 .mediaCardBody {
+  grid-area: body;
   padding: $card-padding;
+
+  // Beside the image, the title's own margin is the gap above
+  @media (min-width: 850px) {
+    padding-top: 0;
+  }
 }
 
 .mediaCardImage {
+  grid-area: image;
   position: relative;
+  // On mobile, the image's row would otherwise be only as tall as the title.
+  // Stretched, so it still meets the header band's bottom when a two-line title is taller.
+  aspect-ratio: 4 / 3;
+  align-self: stretch;
+
+  @media (min-width: 850px) {
+    aspect-ratio: auto;
+  }
 
   img {
     position: absolute;
