@@ -11,6 +11,9 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   // There's no image optimisation server on S3
   images: { unoptimized: true },
+  // Put the CSS in <style> tags in each page rather than render-blocking <link>s.
+  // Fine while our CSS is small; pages can't share a cached stylesheet this way.
+  experimental: { inlineCss: true },
 };
 
 export default nextConfig;
