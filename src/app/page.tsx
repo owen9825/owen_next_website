@@ -10,7 +10,7 @@ import s from './styles.module.scss';
 const KWES_FORM_ID = "l6IzI5rwtjzTd6GFvc9F";
 const RECAPTCHA_SITE_KEY = "6LfHjr0bAAAAAGZE_F4hiMIo3nik5dTeg7frac80";
 // https://dev.to/xandemon/developer-icons-an-awesome-open-source-library-for-free-tech-logos-299p
-import { ClaudeAI, DeepSeek, Gemini, Python, Django, FastAPI, FlaskDark, Java, Go, JavaScript, TypeScript, React as ReactIcon, NodeJs, NextJs, Solidity, Docker, MySQL, PostgreSQL, Redis, Elastic, Swagger, Cloudflare, AWS, GoogleCloud, Linux, Ubuntu, GitHubDark } from "developer-icons";
+import { ClaudeAI, DeepSeek, Gemini, Python, Django , FastAPI, FlaskDark, Java, Go, JavaScript, TypeScript, React as ReactIcon, NodeJs, NextJs, TailwindCSS, Bootstrap4, Bootstrap5, Solidity, Docker, MySQL, PostgreSQL, Redis, Elastic, Swagger, Cloudflare, AWS, GoogleCloud, Linux, Ubuntu, GitHubDark } from "developer-icons";
 
 const socials = [
   { name: "GitHub", icon: "github", url: "https://www.github.com/owen9825" },
@@ -32,6 +32,9 @@ const technologies = [
   { name: "Java", Icon: Java, url: "https://dev.java" },
   { name: "Go", Icon: Go, url: "https://go.dev" },
   { name: "Solidity", Icon: Solidity, url: "https://soliditylang.org" },
+  { name: "Tailwind", Icon: TailwindCSS, url: "https://tailwindcss.com/" },
+  { name: "Bootstrap 4", Icon: Bootstrap4, url: "https://getbootstrap.com/" },
+  { name: "Bootstrap 5", Icon: Bootstrap5, url: "https://getbootstrap.com/" },
   { name: "JavaScript", Icon: JavaScript, url: "https://developer.mozilla.org/en-US/docs/Web/JavaScript" },
   { name: "TypeScript", Icon: TypeScript, url: "https://www.typescriptlang.org" },
   { name: "React", Icon: ReactIcon, url: "https://react.dev" },
