@@ -10,7 +10,7 @@ import s from './styles.module.scss';
 const KWES_FORM_ID = "l6IzI5rwtjzTd6GFvc9F";
 const RECAPTCHA_SITE_KEY = "6LfHjr0bAAAAAGZE_F4hiMIo3nik5dTeg7frac80";
 // https://dev.to/xandemon/developer-icons-an-awesome-open-source-library-for-free-tech-logos-299p
-import { ClaudeAI, DeepSeek, Gemini, Python, Django, FastAPI, Java, Go, JavaScript, TypeScript, React as ReactIcon, NodeJs, NextJs, Solidity, Docker, MySQL, PostgreSQL, Redis, Elastic, Swagger, Cloudflare, AWS, GoogleCloud, Linux, Ubuntu, GitHubDark } from "developer-icons";
+import { ClaudeAI, DeepSeek, Gemini, Python, Django, FastAPI, FlaskDark, Java, Go, JavaScript, TypeScript, React as ReactIcon, NodeJs, NextJs, Solidity, Docker, MySQL, PostgreSQL, Redis, Elastic, Swagger, Cloudflare, AWS, GoogleCloud, Linux, Ubuntu, GitHubDark } from "developer-icons";
 
 const socials = [
   { name: "GitHub", icon: "github", url: "https://www.github.com/owen9825" },
@@ -28,6 +28,7 @@ const technologies = [
   { name: "Python", Icon: Python, url: "https://www.python.org" },
   { name: "Django", Icon: Django, url: "https://www.djangoproject.com" },
   { name: "FastAPI", Icon: FastAPI, url: "https://github.com/fastapi" },
+  { name: "FlaskDark", Icon: FlaskDark, url: "https://flask.palletsprojects.com/en/stable/" },
   { name: "Java", Icon: Java, url: "https://dev.java" },
   { name: "Go", Icon: Go, url: "https://go.dev" },
   { name: "Solidity", Icon: Solidity, url: "https://soliditylang.org" },
@@ -156,7 +157,7 @@ export default function Home() {
                 smiling?"
               </p>
               <p>
-                Instead of optimising only for <i>revenue per night</i>, venues could also optimise 
+                Instead of optimising only for <i>revenue per night</i>, venues could also optimise
                 for <i>smiles per hour</i> and could quantify the demographics of guests.
               </p>
               <p>
